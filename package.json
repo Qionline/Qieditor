@@ -1,0 +1,56 @@
+{
+  "name": "seditor",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@craco/craco": "^5.6.4",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "@types/react-router-dom": "^5.1.5",
+    "antd": "^4.5.4",
+    "axios": "^0.20.0",
+    "craco-antd": "^1.18.1",
+    "lottie-react-web": "^2.2.2",
+    "mobx": "^5.15.5",
+    "mobx-react-lite": "^2.0.7",
+    "rc-queue-anim": "^1.8.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.3",
+    "typescript": "~3.7.2",
+    "use-async-effect": "^2.2.2"
+  },
+  "scripts": {
+    "start": "REACT_APP_ENV=dev craco start",
+    "build": "REACT_APP_ENV=prod craco build",
+    "test": "craco test",
+    "serve": "npx serve -s build",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "craco-alias": "^2.1.1",
+    "serve": "^11.3.2",
+    "webpackbar": "^4.0.0"
+  }
+}
