@@ -1,0 +1,60 @@
+@hoverOrange: #fdf7f0;
+.head-cmp {
+  display: flex;
+  align-items: center;
+  height: 100%;
+
+  .logo {
+    font-size: 18px;
+    padding-right: 20px;
+    font-family: Trebuchet MS;
+    font-weight: bold;
+    color: #e07300;
+    img {
+      margin-top: -5px;
+      margin-right: 5px;
+      height: 20px;
+    }
+  }
+
+  .head-bar-item {
+    padding: 0 15px;
+    text-align: center;
+    font-size: 13.5px;
+    color: #333;
+    cursor: pointer;
+
+    & + .head-bar-item {
+      position: relative;
+      &::before {
+        position: absolute;
+        left: 0;
+        top: 25%;
+        height: 50%;
+        border-left: 1px solid #aaa;
+        content: "";
+      }
+    }
+  }
+}
+
+.menu-item {
+  display: block;
+  min-width: 100px;
+  font-size: 13px;
+  color: #333;
+  padding:0 5px;
+}
+
+.filemenu-import-json {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  input {
+    position: absolute;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+}

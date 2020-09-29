@@ -1,30 +1,54 @@
 //  ./src/stores/todo.ts
-import { action, observable } from "mobx";
+import { action, observable } from "mobx"
+
+export interface globalSettingProp {
+  filename: string
+  global: {
+    title: string
+    bodyColor: string
+    css: string
+    js: string
+  }
+}
+export interface componentsTreePramasProp {
+  [propName: string]: {
+    type: "text" | "textarea" | "link"
+    title: string
+    value: string
+  }
+}
+export interface componentsTreeProp {
+  name: string
+  params: componentsTreePramasProp
+  htmlstr: string
+}
 
 export class DataStore {
-  @observable json = {
+  @observable globalSetting: globalSettingProp = {
     filename: "Seditor",
-
     global: {
       title: "Seditor Page",
-      bodyColor: "#333",
+      bodyColor: "#eee",
       css: "",
-      js: "function func(){console.log(1)}",
+      js: "",
     },
+  }
 
-    main: "<div>123<span>btn</span></div><div>456</div>",
+  @observable mainTree: string[] = []
 
-    component: [
-      {
-        name: "list-item",
-        htmlstr: "<div>item<span>i m component btn</span></div>",
-      },
-    ],
-  };
+  @observable componentsTree: componentsTreeProp[] = []
 
-  @action.bound handleSetToken(json: any) {
-    this.json = json;
+  @action.bound handleSetGlobalSetting(globalSetting: globalSettingProp) {
+    this.globalSetting = globalSetting
+  }
+
+  @action.bound handleSetMainTree(mainTree: string[]) {
+    this.mainTree = [...mainTree]
+  }
+
+  @action.bound handleSetComponentsTree(componentsTree: componentsTreeProp[]) {
+    this.componentsTree = componentsTree
   }
 }
 
-export const DATA_KEY = "dataStore";
+export const DATA_KEY = "dataStore"
