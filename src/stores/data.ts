@@ -18,6 +18,7 @@ export interface componentsTreePramasProp {
   }
 }
 export interface componentsTreeProp {
+  id: number
   name: string
   params: componentsTreePramasProp
   htmlstr: string
@@ -27,14 +28,14 @@ export class DataStore {
   @observable globalSetting: globalSettingProp = {
     filename: "Seditor",
     global: {
-      title: "Seditor Page",
-      bodyColor: "#eee",
+      title: "Seditor Page Title",
+      bodyColor: "#fff",
       css: "",
       js: "",
     },
   }
 
-  @observable mainTree: string[] = []
+  @observable mainTree: componentsTreeProp[] = []
 
   @observable componentsTree: componentsTreeProp[] = []
 
@@ -42,7 +43,7 @@ export class DataStore {
     this.globalSetting = globalSetting
   }
 
-  @action.bound handleSetMainTree(mainTree: string[]) {
+  @action.bound handleSetMainTree(mainTree: componentsTreeProp[]) {
     this.mainTree = [...mainTree]
   }
 

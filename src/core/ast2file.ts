@@ -1,15 +1,18 @@
 // sast编译成可导出的json
-import { globalSettingProp } from "@/stores/data"
+import { TmpReplace } from "@/utils/util"
+
+import { globalSettingProp, componentsTreeProp } from "@/stores/data"
 
 export interface SAst2HtmlFuncProp {
-  (globalSetting: globalSettingProp, mainTree: string[]): string
+  (globalSetting: globalSettingProp, mainTree: componentsTreeProp[]): string
 }
 
 // sast编译成可导出的html
 export const SAst2Html: SAst2HtmlFuncProp = (globalSetting, mainTree) => {
   let main = ""
   mainTree.forEach(el => {
-    main += el
+    const res = TmpReplace(el.htmlstr, el.params)
+    main += res
   })
 
   return `

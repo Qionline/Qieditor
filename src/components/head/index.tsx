@@ -6,7 +6,7 @@ import "./index.less"
 import { useDataStore } from "@/stores"
 
 const HeadComponent: React.FC = () => {
-  const { globalSetting, mainTree, componentsTree, handleSetGlobalSetting, handleSetMainTree, handleSetComponentsTree } = useDataStore()
+  const { handleSetGlobalSetting, handleSetMainTree, handleSetComponentsTree } = useDataStore()
 
   const handleFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files && e.target.files[0] //获取读取的File对象
@@ -59,7 +59,7 @@ const HeadComponent: React.FC = () => {
       <Menu.Item key="0">
         <span className="menu-item">全局css配置</span>
       </Menu.Item>
-      <Menu.Item key="0">
+      <Menu.Item key="1">
         <span className="menu-item">全局js配置</span>
       </Menu.Item>
     </Menu>
