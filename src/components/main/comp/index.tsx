@@ -1,31 +1,13 @@
-import React, { useState } from "react"
+import React from "react"
 import { Divider } from "antd"
 import { observer } from "mobx-react-lite"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
 import "./index.less"
+import { useDataStore } from "@/stores"
 
 const CompComponent: React.FC = () => {
-  const [todos, setTodos] = useState([
-    {
-      id: "a1",
-      text: "aaaaa",
-    },
-    {
-      id: "a2",
-      text: "bbbbb",
-    },
-    {
-      id: "a3",
-      text: "cccccc",
-    },
-  ])
-  const [todos2, setTodos2] = useState([
-    {
-      id: "a4",
-      text: "dddd",
-    },
-  ])
+  const { mainTree, componentsTree, handleSetMainTree, handleSetComponentsTree } = useDataStore()
   return (
     <div className="comp-cmp">
       <div className="comp-title">
@@ -42,36 +24,47 @@ const CompComponent: React.FC = () => {
           const start = source.droppableId
           const end = destination.droppableId
           if (start === end) {
-            let arr = Array.from(todos2)
+            let arr = Array.from(mainTree)
             const [remove] = arr.splice(source.index, 1)
             arr.splice(destination.index, 0, remove)
-            setTodos2([...arr])
+            handleSetMainTree([...arr])
             return
           }
-          let arr1 = Array.from(todos)
-          let arr2 = Array.from(todos2)
+          let arr1 = Array.from(componentsTree)
+          let arr2 = Array.from(mainTree)
           const [remove] = arr1.splice(source.index, 1)
           arr2.splice(destination.index, 0, remove)
-          setTodos([...arr1])
-          setTodos2([...arr2])
+          handleSetComponentsTree([...arr1])
+          handleSetMainTree([...arr2])
 
           const item = {
-            id: Date.parse(new Date().toString()).toString(),
-            text: todos[source.index].text,
+            id: parseInt(Date.parse(new Date().toString()).toString()),
+            name: componentsTree[source.index].name,
+            params: { ...componentsTree[source.index].params },
+            htmlstr: componentsTree[source.index].htmlstr,
           }
           arr1.splice(source.index, 0, item)
-          setTodos([...arr1])
+          handleSetComponentsTree([...arr1])
         }}
       >
         <div className="comp-main">
           <Droppable isDropDisabled droppableId="compLib">
             {provided => (
               <div className="comp-item" ref={provided.innerRef} {...provided.droppableProps}>
-                {todos.map((t, i) => (
-                  <Draggable draggableId={t.id} index={i} key={t.id}>
+                {componentsTree.map((t, i) => (
+                  <Draggable draggableId={t.id + ""} index={i} key={t.id}>
                     {(p, s) => (
-                      <div className="comp-item-child" ref={p.innerRef} {...p.draggableProps} {...p.dragHandleProps} key={t.id}>
-                        {t.text}
+                      <div
+                        onClick={() => {
+                          console.log(1)
+                        }}
+                        className={`comp-item-child  ${s.isDragging ? "comp-item-child-active" : ""}`}
+                        ref={p.innerRef}
+                        {...p.draggableProps}
+                        {...p.dragHandleProps}
+                        key={t.id}
+                      >
+                        {t.name}
                       </div>
                     )}
                   </Draggable>
@@ -86,12 +79,20 @@ const CompComponent: React.FC = () => {
             {(provided, snapshot) => {
               return (
                 <div style={{ backgroundColor: snapshot.isDraggingOver ? "#fff5df" : "" }} className="comp-item" ref={provided.innerRef} {...provided.droppableProps}>
-                  {todos2.map((t, i) => (
-                    <Draggable draggableId={t.id} index={i} key={t.id}>
+                  {mainTree.map((t, i) => (
+                    <Draggable draggableId={t.id + ""} index={i} key={t.id}>
                       {(p, s) => {
                         return (
-                          <div className={`comp-item-child  ${s.isDragging ? "comp-item-child-active" : ""}`} ref={p.innerRef} {...p.draggableProps} {...p.dragHandleProps}>
-                            {t.text}
+                          <div
+                            onClick={() => {
+                              console.log(1)
+                            }}
+                            className={`comp-item-child  ${s.isDragging ? "comp-item-child-active" : ""}`}
+                            ref={p.innerRef}
+                            {...p.draggableProps}
+                            {...p.dragHandleProps}
+                          >
+                            {t.name}
                           </div>
                         )
                       }}
