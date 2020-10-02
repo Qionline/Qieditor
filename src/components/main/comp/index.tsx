@@ -4,10 +4,12 @@ import { observer } from "mobx-react-lite"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
 import "./index.less"
-import { useDataStore } from "@/stores"
+import { useDataStore, useStateStore } from "@/stores"
+import { componentsTreePramasProp } from "@/stores/data"
 
 const CompComponent: React.FC = () => {
   const { mainTree, componentsTree, handleSetMainTree, handleSetComponentsTree } = useDataStore()
+  const { componetSelectState, handleSetComponetSelectState } = useStateStore()
   return (
     <div className="comp-cmp">
       <div className="comp-title">
@@ -17,25 +19,40 @@ const CompComponent: React.FC = () => {
       <DragDropContext
         onDragEnd={result => {
           const { source, destination } = result
+
           if (!destination) {
             return
           }
 
+          handleSetComponetSelectState(destination.index)
+
           const start = source.droppableId
           const end = destination.droppableId
           if (start === end) {
-            let arr = Array.from(mainTree)
-            const [remove] = arr.splice(source.index, 1)
-            arr.splice(destination.index, 0, remove)
-            handleSetMainTree([...arr])
+            let mainTreeArr = [...mainTree]
+            const [remove] = mainTreeArr.splice(source.index, 1)
+            mainTreeArr.splice(destination.index, 0, remove)
+            handleSetMainTree([...mainTreeArr])
             return
           }
-          let arr1 = Array.from(componentsTree)
-          let arr2 = Array.from(mainTree)
-          const [remove] = arr1.splice(source.index, 1)
-          arr2.splice(destination.index, 0, remove)
-          handleSetComponentsTree([...arr1])
-          handleSetMainTree([...arr2])
+          let compTreeArr = [...componentsTree]
+          let mainTreeArr = [...mainTree]
+          const [remove] = compTreeArr.splice(source.index, 1)
+          let resParams: componentsTreePramasProp = {}
+          Object.keys(remove.params).forEach(v => {
+            resParams[v] = {
+              value: remove.params[v].value,
+              title: remove.params[v].title,
+              type: remove.params[v].type,
+            }
+          })
+          mainTreeArr.splice(destination.index, 0, {
+            id: remove.id,
+            name: remove.name,
+            params: { ...resParams },
+            htmlstr: remove.htmlstr,
+          })
+          handleSetMainTree([...mainTreeArr])
 
           const item = {
             id: parseInt(Date.parse(new Date().toString()).toString()),
@@ -43,8 +60,8 @@ const CompComponent: React.FC = () => {
             params: { ...componentsTree[source.index].params },
             htmlstr: componentsTree[source.index].htmlstr,
           }
-          arr1.splice(source.index, 0, item)
-          handleSetComponentsTree([...arr1])
+          compTreeArr.splice(source.index, 0, item)
+          handleSetComponentsTree([...compTreeArr])
         }}
       >
         <div className="comp-main">
@@ -54,16 +71,7 @@ const CompComponent: React.FC = () => {
                 {componentsTree.map((t, i) => (
                   <Draggable draggableId={t.id + ""} index={i} key={t.id}>
                     {(p, s) => (
-                      <div
-                        onClick={() => {
-                          console.log(1)
-                        }}
-                        className={`comp-item-child  ${s.isDragging ? "comp-item-child-active" : ""}`}
-                        ref={p.innerRef}
-                        {...p.draggableProps}
-                        {...p.dragHandleProps}
-                        key={t.id}
-                      >
+                      <div className={`comp-item-child  ${s.isDragging ? "comp-item-child-drag" : ""}`} ref={p.innerRef} {...p.draggableProps} {...p.dragHandleProps} key={t.id}>
                         {t.name}
                       </div>
                     )}
@@ -85,9 +93,9 @@ const CompComponent: React.FC = () => {
                         return (
                           <div
                             onClick={() => {
-                              console.log(1)
+                              handleSetComponetSelectState(i)
                             }}
-                            className={`comp-item-child  ${s.isDragging ? "comp-item-child-active" : ""}`}
+                            className={`comp-item-child  ${s.isDragging ? "comp-item-child-drag" : ""} ${componetSelectState === i ? "comp-item-child-active" : ""}`}
                             ref={p.innerRef}
                             {...p.draggableProps}
                             {...p.dragHandleProps}

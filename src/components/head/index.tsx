@@ -3,10 +3,12 @@ import { Menu, Dropdown } from "antd"
 import { observer } from "mobx-react-lite"
 
 import "./index.less"
-import { useDataStore } from "@/stores"
+import { SAst2Html } from "@/core/ast2file"
+import { useDataStore, useStateStore } from "@/stores"
 
 const HeadComponent: React.FC = () => {
-  const { handleSetGlobalSetting, handleSetMainTree, handleSetComponentsTree } = useDataStore()
+  const { handleSetComponetSelectState } = useStateStore()
+  const { globalSetting, mainTree, componentsTree, handleSetGlobalSetting, handleSetMainTree, handleSetComponentsTree } = useDataStore()
 
   const handleFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files && e.target.files[0]
@@ -25,40 +27,58 @@ const HeadComponent: React.FC = () => {
       })
       handleSetMainTree(json.main)
       handleSetComponentsTree(json.component)
+      handleSetComponetSelectState(0)
     }
+  }
+
+  const handleHtmlDownload = () => {
+    const content = SAst2Html(globalSetting, mainTree)
+    const filename = `${globalSetting.filename}.html`
+    const eleLink = document.createElement("a")
+    eleLink.download = filename
+    eleLink.style.display = "none"
+    const blob = new Blob([content])
+    eleLink.href = URL.createObjectURL(blob)
+    document.body.appendChild(eleLink)
+    eleLink.click()
+    document.body.removeChild(eleLink)
+  }
+
+  const handleJsonDownload = () => {
+    const content = JSON.stringify({
+      ...globalSetting,
+      main: [...mainTree],
+      component: [...componentsTree],
+    })
+    const filename = `${globalSetting.filename}.json`
+    const eleLink = document.createElement("a")
+    eleLink.download = filename
+    eleLink.style.display = "none"
+    const blob = new Blob([content])
+    eleLink.href = URL.createObjectURL(blob)
+    document.body.appendChild(eleLink)
+    eleLink.click()
+    document.body.removeChild(eleLink)
   }
 
   const fileMenu = (
     <Menu>
       <Menu.Item key="0">
         <span className="menu-item filemenu-import-json">
-          <input
-            onChange={e => {
-              handleFiles(e)
-            }}
-            type="file"
-            id="files"
-          />
+          <input onChange={handleFiles} type="file" id="files" />
           导入配置文件
         </span>
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key="1">
-        <span className="menu-item">下载配置文件</span>
+        <span className="menu-item" onClick={handleJsonDownload}>
+          导出配置文件
+        </span>
       </Menu.Item>
       <Menu.Item key="2">
-        <span className="menu-item">下载页面</span>
-      </Menu.Item>
-    </Menu>
-  )
-
-  const confMenu = (
-    <Menu>
-      <Menu.Item key="0">
-        <span className="menu-item">全局css配置</span>
-      </Menu.Item>
-      <Menu.Item key="1">
-        <span className="menu-item">全局js配置</span>
+        <span className="menu-item" onClick={handleHtmlDownload}>
+          下载页面
+        </span>
       </Menu.Item>
     </Menu>
   )
@@ -75,16 +95,11 @@ const HeadComponent: React.FC = () => {
     <div className="head-cmp">
       <div className="logo">
         <img src={require("@/images/logo.gif")} alt="" />
-        Seditor
+        Qieditor
       </div>
       <Dropdown overlay={fileMenu} trigger={["click"]}>
         <span className="head-bar-item" onClick={e => e.preventDefault()}>
           文件
-        </span>
-      </Dropdown>
-      <Dropdown overlay={confMenu} trigger={["click"]}>
-        <span className="head-bar-item" onClick={e => e.preventDefault()}>
-          脚本配置
         </span>
       </Dropdown>
       <Dropdown overlay={helpMenu} trigger={["click"]}>

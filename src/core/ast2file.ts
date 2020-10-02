@@ -21,7 +21,7 @@ export const SAst2Html: SAst2HtmlFuncProp = (globalSetting, mainTree) => {
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <title>${globalSetting.global.title}</title>
     </head>
-    <style>body{background-color:${globalSetting.global.bodyColor};}</style>
+    <style>body{background-color:${globalSetting.global.bodyColor};direction:${globalSetting.global.direction}}</style>
     <style>${globalSetting.global.css}</style>
     <body>
       <div id="#sapp">${main}</div>

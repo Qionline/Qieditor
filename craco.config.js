@@ -12,7 +12,7 @@ process.env.GENERATE_SOURCEMAP = false
 
 module.exports = {
   webpack: {
-    plugins: [new WebpackBar({ name: "Seditor", profile: true })],
+    plugins: [new WebpackBar({ name: "Qieditor", profile: true })],
   },
   // jest: {
   //   configure: {
