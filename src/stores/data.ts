@@ -1,5 +1,7 @@
 import { action, observable } from "mobx"
 
+import { globalTutorialConf, mainTutorialConf, componentsTutorialConf } from "@/tutorial"
+
 export interface globalSettingProp {
   filename: string
   global: {
@@ -26,56 +28,12 @@ export interface componentsTreeProp {
 
 export class DataStore {
   @observable globalSetting: globalSettingProp = {
-    filename: "Qieditor",
-    global: {
-      title: "Qieditor Page Title",
-      direction: "ltr",
-      bodyColor: "#fff",
-      css: "",
-      js: "",
-    },
+    ...globalTutorialConf,
   }
 
-  @observable mainTree: componentsTreeProp[] = [
-    {
-      id: 0,
-      name: "main",
-      params: {},
-      htmlstr: '<img style="width:100%;" src="https://5b0988e595225.cdn.sohucs.com/images/20190617/aa741b738448438f87c8659dd5e5ea32.png" />',
-    },
-  ]
+  @observable mainTree: componentsTreeProp[] = [...mainTutorialConf]
 
-  @observable componentsTree: componentsTreeProp[] = [
-    {
-      id: 1,
-      name: "list-item",
-      params: {
-        a1: {
-          type: "text",
-          title: "我是标题a1",
-          value: "33",
-        },
-        a2: {
-          type: "text",
-          title: "我是标题a2",
-          value: "a2a2a2a2",
-        },
-      },
-      htmlstr: "<div>item<span>i m <%a1%>|<%a2%></span></div>",
-    },
-    {
-      id: 2,
-      name: "list-item2",
-      params: {
-        a1: {
-          type: "text",
-          title: "我是标题a2",
-          value: "11",
-        },
-      },
-      htmlstr: "<div>item<span>i m <%a1%></span></div>",
-    },
-  ]
+  @observable componentsTree: componentsTreeProp[] = [...componentsTutorialConf]
 
   @action.bound handleSetGlobalSetting(globalSetting: globalSettingProp) {
     this.globalSetting = globalSetting
