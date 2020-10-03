@@ -24,7 +24,7 @@
       background-color: #fff;
       transition: 0.4s ease all;
 
-      .comp-item-child {
+      &-child {
         display: flex;
         align-items: center;
         margin-top: 20px;
@@ -33,14 +33,16 @@
         border-radius: 5px;
       }
 
-      .comp-item-child-drag {
+      &-child-drag {
         background-color: #ffb21eaa;
         transform-style: rotate(15deg);
-        box-shadow: 2px 2px 5px #ccc;
+        box-shadow: 2px 2px 5px #ffb21e;
+        border: none;
       }
-      .comp-item-child-active {
+      &-child-active {
         color: #fff;
-        background-color: #e07300 !important;
+        background-color: #e07300;
+        border: none;
       }
 
       .comp-lib-tips {
