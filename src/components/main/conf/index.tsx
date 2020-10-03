@@ -114,7 +114,7 @@ const ConfComponent: React.FC = () => {
               {mainTree[componetSelectState].name}({componetSelectState})
             </span>
             {Object.keys(mainTree[componetSelectState].params).length === 0 ? (
-              <div>该组件无配置项</div>
+              <div className="no-conf">该组件无配置项</div>
             ) : (
               Object.keys(mainTree[componetSelectState].params).map((v, i) => {
                 const el = mainTree[componetSelectState].params[v]
@@ -128,7 +128,6 @@ const ConfComponent: React.FC = () => {
             )}
           </div>
         )}
-
       </div>
     </div>
   )
