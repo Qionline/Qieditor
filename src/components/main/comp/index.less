@@ -22,19 +22,21 @@
       flex: 1;
       padding: 0 20px;
       background-color: #fff;
-      transition: 0.4s ease background;
+      transition: 0.4s ease all;
 
       .comp-item-child {
         display: flex;
         align-items: center;
         margin-top: 20px;
         padding: 10px 15px;
-        border: 1px solid #eee;
+        border: 1px solid #ccc;
         border-radius: 5px;
       }
 
       .comp-item-child-drag {
-        background-color: #ffb21e;
+        background-color: #ffb21eaa;
+        transform-style: rotate(15deg);
+        box-shadow: 2px 2px 5px #ccc;
       }
       .comp-item-child-active {
         color: #fff;
