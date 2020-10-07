@@ -49,6 +49,6 @@ export const componentsTutorialConf: componentsTreeProp[] = [
       },
     },
     htmlstr:
-      '<div>\n        <h4 class="title-common indigo-text">尝试修改配置</h4>\n        <div class="text-common indigo-p"><%testp%></div>\n\n        <h4>👉👉 菜单/文件介绍 👉👉</h4>\n        <div class="text-common purple-p" style="margin-bottom: 0.2rem;">\n          <div>导入配置文件：把配置文件导入页面（⚠️注意要导入.json结尾的配置文件）</div>\n          <div>----------------------------------------</div>\n          <div>导出配置文件：导出的配置文件会保存你当前的更改内容</div>\n          <div>----------------------------------------</div>\n          <div>下载页面：下载出浏览器可读的html文件，将此页面放置于服务器即可正常访问页面内容！</div>\n          <div>----------------------------------------</div>\n          <div>最后：你可以尝试先导出该配置文件，然后刷新页面，再导入改配置文件查看效果</div>\n        </div>\n      </div>',
+      '<div>\n        <h4 class="title-common indigo-text">尝试修改配置</h4>\n        <div class="text-common indigo-p"><%testp%></div>\n\n        <h4>👆👆 菜单/文件介绍 👆👆</h4>\n        <div class="text-common purple-p" style="margin-bottom: 0.2rem;">\n          <div>导入配置文件：把配置文件导入页面（⚠️注意要导入.json结尾的配置文件）</div>\n          <div>----------------------------------------</div>\n          <div>导出配置文件：导出的配置文件会保存你当前的更改内容</div>\n          <div>----------------------------------------</div>\n          <div>下载页面：下载出浏览器可读的html文件，将此页面放置于服务器即可正常访问页面内容！</div>\n          <div>----------------------------------------</div>\n          <div>最后：你可以尝试先导出该配置文件，然后刷新页面，再导入改配置文件查看效果</div>\n        </div>\n      </div>',
   },
 ]
