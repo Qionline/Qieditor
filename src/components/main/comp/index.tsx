@@ -1,7 +1,7 @@
 import React from "react"
 import { Divider } from "antd"
 import { observer } from "mobx-react-lite"
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
+import { DragDropContext, Droppable, Draggable, DropResult } from "react-beautiful-dnd"
 
 import "./index.less"
 import { useDataStore, useStateStore } from "@/stores"
@@ -10,60 +10,58 @@ import { componentsTreePramasProp } from "@/stores/data"
 const CompComponent: React.FC = () => {
   const { mainTree, componentsTree, handleSetMainTree, handleSetComponentsTree } = useDataStore()
   const { componetSelectState, handleSetComponetSelectState } = useStateStore()
+
+  const handleDragEnd = (result: DropResult) => {
+    const { source, destination } = result
+    if (!destination) {
+      return
+    }
+    handleSetComponetSelectState(destination.index)
+    const start = source.droppableId
+    const end = destination.droppableId
+    if (start === end) {
+      let mainTreeArr = [...mainTree]
+      const [remove] = mainTreeArr.splice(source.index, 1)
+      mainTreeArr.splice(destination.index, 0, remove)
+      handleSetMainTree([...mainTreeArr])
+      return
+    }
+    let compTreeArr = [...componentsTree]
+    let mainTreeArr = [...mainTree]
+    const [remove] = compTreeArr.splice(source.index, 1)
+    let resParams: componentsTreePramasProp = {}
+    Object.keys(remove.params).forEach(v => {
+      resParams[v] = {
+        value: remove.params[v].value,
+        title: remove.params[v].title,
+        type: remove.params[v].type,
+      }
+    })
+    mainTreeArr.splice(destination.index, 0, {
+      id: remove.id,
+      name: remove.name,
+      params: { ...resParams },
+      htmlstr: remove.htmlstr,
+    })
+    handleSetMainTree([...mainTreeArr])
+
+    const item = {
+      id: parseInt(Date.parse(new Date().toString()).toString()),
+      name: componentsTree[source.index].name,
+      params: { ...componentsTree[source.index].params },
+      htmlstr: componentsTree[source.index].htmlstr,
+    }
+    compTreeArr.splice(source.index, 0, item)
+    handleSetComponentsTree([...compTreeArr])
+  }
+
   return (
     <div className="comp-cmp">
       <div className="comp-title">
         <span>组件库</span>
         <span>页面模板</span>
       </div>
-      <DragDropContext
-        onDragEnd={result => {
-          const { source, destination } = result
-
-          if (!destination) {
-            return
-          }
-
-          handleSetComponetSelectState(destination.index)
-
-          const start = source.droppableId
-          const end = destination.droppableId
-          if (start === end) {
-            let mainTreeArr = [...mainTree]
-            const [remove] = mainTreeArr.splice(source.index, 1)
-            mainTreeArr.splice(destination.index, 0, remove)
-            handleSetMainTree([...mainTreeArr])
-            return
-          }
-          let compTreeArr = [...componentsTree]
-          let mainTreeArr = [...mainTree]
-          const [remove] = compTreeArr.splice(source.index, 1)
-          let resParams: componentsTreePramasProp = {}
-          Object.keys(remove.params).forEach(v => {
-            resParams[v] = {
-              value: remove.params[v].value,
-              title: remove.params[v].title,
-              type: remove.params[v].type,
-            }
-          })
-          mainTreeArr.splice(destination.index, 0, {
-            id: remove.id,
-            name: remove.name,
-            params: { ...resParams },
-            htmlstr: remove.htmlstr,
-          })
-          handleSetMainTree([...mainTreeArr])
-
-          const item = {
-            id: parseInt(Date.parse(new Date().toString()).toString()),
-            name: componentsTree[source.index].name,
-            params: { ...componentsTree[source.index].params },
-            htmlstr: componentsTree[source.index].htmlstr,
-          }
-          compTreeArr.splice(source.index, 0, item)
-          handleSetComponentsTree([...compTreeArr])
-        }}
-      >
+      <DragDropContext onDragEnd={handleDragEnd}>
         <div className="comp-main">
           <Droppable isDropDisabled droppableId="compLib">
             {provided => (
