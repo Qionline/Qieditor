@@ -1,5 +1,6 @@
 import React, { useState } from "react"
-import { Menu, Radio, Input, Divider } from "antd"
+import { Menu, Radio, Input, Divider, Button, Modal } from "antd"
+import { CloseCircleOutlined } from "@ant-design/icons"
 import { observer } from "mobx-react-lite"
 import { ColorResult, TwitterPicker } from "react-color"
 
@@ -36,8 +37,8 @@ const CompConfItem: React.FC<CompConfItemProps> = ({ idx, type, value }) => {
 }
 
 const ConfComponent: React.FC = () => {
-  const { componetSelectState } = useStateStore()
-  const { globalSetting, mainTree, handleSetGlobalSetting } = useDataStore()
+  const { componetSelectState, handleSetComponetSelectState } = useStateStore()
+  const { globalSetting, mainTree, handleSetGlobalSetting, handleSetMainTree } = useDataStore()
 
   const [confMenuState, setConfMenuState] = useState("global")
 
@@ -64,6 +65,25 @@ const ConfComponent: React.FC = () => {
     const res = globalSetting
     res.global.bodyColor = color.hex
     handleSetGlobalSetting(res)
+  }
+
+  const handleDelComponent = () => {
+    Modal.confirm({
+      title: "组件删除",
+      content: `确定要删除组件 "${mainTree[componetSelectState].name}(${componetSelectState})" 吗`,
+      icon: <CloseCircleOutlined style={{ color: "#ff4d4f" }} />,
+      okText: "确 定",
+      okType: "danger",
+      cancelText: "取 消",
+      style: { top: 250 },
+      onOk() {
+        const tree = [...mainTree]
+        tree.splice(componetSelectState, 1)
+        if (!tree.length) setConfMenuState("global")
+        if (tree.length === componetSelectState) handleSetComponetSelectState(componetSelectState - 1)
+        handleSetMainTree(tree)
+      },
+    })
   }
 
   return (
@@ -126,6 +146,11 @@ const ConfComponent: React.FC = () => {
                 )
               })
             )}
+            <div className="conf-comp-page-btnGroup">
+              <Button shape="round" type="primary" danger onClick={handleDelComponent}>
+                删除当前组件
+              </Button>
+            </div>
           </div>
         )}
       </div>
