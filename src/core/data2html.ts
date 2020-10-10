@@ -31,7 +31,6 @@ export const SData2Html: SData2HtmlFuncProp = (globalSetting, mainTree, localStr
     </body>
     ${localString}
     <script>${globalSetting.global.js}</script>
-    <script>console.log(navigator.userAgent);</script>
   </html>
   `
 }
