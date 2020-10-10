@@ -1,14 +1,14 @@
-// sast编译成可导出的json
+// sdata编译成可导出的json
 import { TmpReplace } from "@/core/feature/stringReplace"
 
 import { globalSettingProp, componentsTreeProp } from "@/stores/data"
 
-export interface SAst2HtmlFuncProp {
-  (globalSetting: globalSettingProp, mainTree: componentsTreeProp[]): string
+export interface SData2HtmlFuncProp {
+  (globalSetting: globalSettingProp, mainTree: componentsTreeProp[], localString?: string): string
 }
 
-// sast编译成可导出的html
-export const SAst2Html: SAst2HtmlFuncProp = (globalSetting, mainTree) => {
+// sdata编译成可导出的html
+export const SData2Html: SData2HtmlFuncProp = (globalSetting, mainTree, localString = "") => {
   let main = ""
   mainTree.forEach(el => {
     const res = TmpReplace(el.htmlstr, el.params)
@@ -29,7 +29,9 @@ export const SAst2Html: SAst2HtmlFuncProp = (globalSetting, mainTree) => {
     <body>
       <div id="#sapp">${main}</div>
     </body>
+    ${localString}
     <script>${globalSetting.global.js}</script>
-    </html>
+    <script>console.log(navigator.userAgent);</script>
+  </html>
   `
 }

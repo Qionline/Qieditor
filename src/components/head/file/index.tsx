@@ -2,7 +2,7 @@ import React from "react"
 import { Menu, Dropdown } from "antd"
 import { observer } from "mobx-react-lite"
 
-import { SAst2Html } from "@/core/ast2file"
+import { SData2Html } from "@/core/data2html"
 import { useDataStore, useStateStore } from "@/stores"
 
 const FileMenu: React.FC = () => {
@@ -31,7 +31,7 @@ const FileMenu: React.FC = () => {
   }
 
   const handleHtmlDownload = () => {
-    const content = SAst2Html(globalSetting, mainTree)
+    const content = SData2Html(globalSetting, mainTree)
     const filename = `${globalSetting.filename}.html`
     const eleLink = document.createElement("a")
     eleLink.download = filename

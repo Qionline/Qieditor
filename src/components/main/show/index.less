@@ -5,13 +5,43 @@
   height: 100%;
   box-sizing: border-box;
 
-  .show-page-title {
+  &-phoneType {
+    display: flex;
+    margin: 0 auto 10px;
+    width: 300px;
+    font-size: 15px;
+    color: #e07300;
+    overflow: hidden;
+    border: 2px solid #e07300;
+    border-radius: 10px;
+    & > div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+      height: 100%;
+      transition: 0.2s all ease;
+      cursor: pointer;
+      svg {
+        margin-right: 5px;
+        width: 15px;
+        height: 15px;
+      }
+    }
+
+    &-active {
+      color: #fff;
+      background-color: #e07300;
+    }
+  }
+
+  &-title {
     margin: 0px auto 10px;
     width: 375px;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .show-page-box {
+  &-box {
     flex: 1;
     margin: 0 auto;
     width: 375px;
