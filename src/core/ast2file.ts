@@ -1,5 +1,5 @@
 // sast编译成可导出的json
-import { TmpReplace } from "@/utils/util"
+import { TmpReplace } from "@/core/feature/stringReplace"
 
 import { globalSettingProp, componentsTreeProp } from "@/stores/data"
 
