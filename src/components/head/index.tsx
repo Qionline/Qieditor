@@ -9,7 +9,7 @@ const HeadComponent: React.FC = () => {
   return (
     <div className="head-cmp">
       <div className="logo">
-        <img src={require("@/images/logo.gif")} alt="" />
+        <img src={require("@/images/icon.png")} alt="" />
         Qieditor
       </div>
       <FileMenu />
