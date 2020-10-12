@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { observer } from "mobx-react-lite"
 
 import { ReactComponent as IosSVG } from "@/images/ios.svg"
@@ -11,6 +11,18 @@ import { Local2Html } from "@/core/local2html"
 const ShowComponent: React.FC = () => {
   const { globalSetting, mainTree } = useDataStore()
   const { localSetting, handleSetPhoneType } = useLocalSettingStore()
+
+  useEffect(() => {
+    window.addEventListener(
+      "message",
+      event => {
+        if (event && typeof event.data === "number") {
+          console.log(event.data)
+        }
+      },
+      false
+    )
+  }, [])
 
   return (
     <div className="show-cmp">

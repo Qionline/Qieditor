@@ -31,6 +31,8 @@ export const SData2Html: SData2HtmlFuncProp = (globalSetting, mainTree, localStr
     </body>
     ${localString}
     <script>${globalSetting.global.js}</script>
+    <script>window.scrollTo( 0, 1000 );</script>
+    <script>document.addEventListener("scroll",function(){ parent.postMessage(document.documentElement.scrollTop,'*');})</script>
   </html>
   `
 }
