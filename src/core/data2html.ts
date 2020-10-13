@@ -1,14 +1,15 @@
 // sdata编译成可导出的json
 import { TmpReplace } from "@/core/feature/stringReplace"
 
+import { Local2HtmlProp } from "@/core/local2html"
 import { globalSettingProp, componentsTreeProp } from "@/stores/data"
 
 export interface SData2HtmlFuncProp {
-  (globalSetting: globalSettingProp, mainTree: componentsTreeProp[], localString?: string): string
+  (globalSetting: globalSettingProp, mainTree: componentsTreeProp[], localString?: Local2HtmlProp): string
 }
 
 // sdata编译成可导出的html
-export const SData2Html: SData2HtmlFuncProp = (globalSetting, mainTree, localString = "") => {
+export const SData2Html: SData2HtmlFuncProp = (globalSetting, mainTree, localString) => {
   let main = ""
   mainTree.forEach(el => {
     const res = TmpReplace(el.htmlstr, el.params)
@@ -29,10 +30,11 @@ export const SData2Html: SData2HtmlFuncProp = (globalSetting, mainTree, localStr
     <body>
       <div id="#sapp">${main}</div>
     </body>
-    ${localString}
+    ${localString ? localString.TypeDisguise : ""}
+
     <script>${globalSetting.global.js}</script>
-    <script>window.scrollTo( 0, 1000 );</script>
-    <script>document.addEventListener("scroll",function(){ parent.postMessage(document.documentElement.scrollTop,'*');})</script>
-  </html>
+
+    ${localString ? localString.ScrollPositonCache : ""}
+    </html>
   `
 }

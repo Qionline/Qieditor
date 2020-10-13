@@ -4,6 +4,7 @@ import { observer } from "mobx-react-lite"
 import { ReactComponent as IosSVG } from "@/images/ios.svg"
 import { ReactComponent as AndroidSVG } from "@/images/android.svg"
 import "./index.less"
+import { ScrollPositonSetting } from "@/core/feature/scrollPositionCache"
 import { useDataStore, useLocalSettingStore } from "@/stores"
 import { SData2Html } from "@/core/data2html"
 import { Local2Html } from "@/core/local2html"
@@ -17,7 +18,7 @@ const ShowComponent: React.FC = () => {
       "message",
       event => {
         if (event && typeof event.data === "number") {
-          console.log(event.data)
+          ScrollPositonSetting.num = event.data
         }
       },
       false
@@ -48,7 +49,7 @@ const ShowComponent: React.FC = () => {
       </div>
       <div className="show-cmp-title">{globalSetting.global.title}</div>
       <div className="show-cmp-box">
-        <iframe title="a" width="100%" height="100%" frameBorder="0" srcDoc={SData2Html(globalSetting, mainTree, Local2Html(localSetting))} />
+        <iframe title="qieditor" width="100%" height="100%" frameBorder="0" srcDoc={SData2Html(globalSetting, mainTree, Local2Html(localSetting))} />
       </div>
     </div>
   )
