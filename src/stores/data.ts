@@ -1,5 +1,6 @@
 import { action, observable } from "mobx"
 
+import { setLocalDataStorage } from "@/core/feature/localDataStorage"
 import { globalTutorialConf, mainTutorialConf, componentsTutorialConf } from "@/tutorial"
 
 export interface globalSettingProp {
@@ -41,10 +42,12 @@ export class DataStore {
 
   @action.bound handleSetMainTree(mainTree: componentsTreeProp[]) {
     this.mainTree = [...mainTree]
+    setLocalDataStorage()
   }
 
   @action.bound handleSetComponentsTree(componentsTree: componentsTreeProp[]) {
     this.componentsTree = componentsTree
+    setLocalDataStorage()
   }
 }
 
