@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="230px" height="231px" viewBox="0 0 230 231" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+    <title>未命名</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Qieditor">
+            <ellipse id="椭圆形" fill="#E07300" cx="115" cy="115.5" rx="115" ry="115.5"></ellipse>
+            <circle id="椭圆形" fill="#FFFFFF" cx="49.5" cy="86.5" r="28.5"></circle>
+            <circle id="椭圆形" fill="#FFFFFF" cx="177.5" cy="86.5" r="28.5"></circle>
+            <path d="M76,133 C78.9696886,131.447245 81.196955,130.338532 82.6817993,129.673861 C92.6211995,125.22462 102.5606,123 112.5,123 C119.852875,123 127.20575,124.217447 134.558626,126.65234 C137.76782,127.715059 142.581611,129.830946 149,133" id="路径-3" stroke="#FFFFFF" stroke-width="10" stroke-linejoin="round" transform="translate(112.500000, 128.000000) scale(1, -1) translate(-112.500000, -128.000000) "></path>
+        </g>
+    </g>
+</svg>

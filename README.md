@@ -1,4 +1,21 @@
-# Qieditor
-A quick HTML page generation tool
+<p align="center">
+ <img width="100px" src="./docs/images/logo.svg" align="center" alt="Tnshare Logo" />
+ <h2 align="center">Qieditor</h2>
+ <p align="center">一个HTML页面生成器。</p>
+</p>
+<p align="center">
+  <a href="https://github.com/Qionline/Qieditor/issues/new/choose">报告BUG 🐛</a>
+</p>
+<p align="center">
+  <a href="/README.md">简体中文</a>
+  |
+  <a href="/docs/README-EN.md">Englisn</a>
+</p>
 
-You can Click [here](https://myytangling.gitee.io/) to access this webtool
+Qieditor 是一个HTML页面生成器：通过配置形式快速生成页面的可视化编辑工具，做到一次开发、多次生成，简化开发流程，提高开发流水线的生产效率。
+
+<p align="center">
+  点击 <a href="https://qi.byeguo.cn/">🥳 立即使用 🥳</a> 即可体验 Qieditor 的完整功能。
+</p>
+
+## 功能介绍
