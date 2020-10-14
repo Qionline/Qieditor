@@ -35,11 +35,11 @@ const AssistMenu: React.FC = () => {
         <div className="about-title">
           <span>Qieditor</span>
           <div>
-            <a href="https://github.com/betterTisen/Qieditor">
-              <img src="https://badgen.net/github/stars/betterTisen/Qieditor?color=orange" alt="stars" />
+            <a href="https://github.com/Qionline/Qieditor">
+              <img src="https://badgen.net/github/stars/Qionline/Qieditor?color=orange" alt="stars" />
             </a>
-            <a href="https://github.com/betterTisen/Qieditor/issues">
-              <img src="https://badgen.net/github/issues/betterTisen/Qieditor?color=orange" alt="issues" />
+            <a href="https://github.com/Qionline/Qieditor/issues/new/choose">
+              <img src="https://badgen.net/github/issues/Qionline/Qieditor?color=orange" alt="issues" />
             </a>
           </div>
         </div>
@@ -48,14 +48,14 @@ const AssistMenu: React.FC = () => {
 
         <p>
           如果你在使用过程中有任何问题(或建议)欢迎点击
-          <Button type="link" href="https://github.com/betterTisen/Qieditor/issues">
+          <Button type="link" href="https://github.com/Qionline/Qieditor/issues/new/choose">
             Issues
           </Button>
           与我交流。
         </p>
         <p>
           当然如果你喜欢该工具，也欢迎通过
-          <Button type="link" href="https://github.com/betterTisen/Qieditor">
+          <Button type="link" href="https://github.com/Qionline/Qieditor">
             Github
           </Button>
           点个 🌟～
