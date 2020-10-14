@@ -2,6 +2,7 @@
   "name": "qieditor",
   "version": "1.0.0",
   "private": true,
+  "homepage": "https://Qionline.github.io",
   "dependencies": {
     "@craco/craco": "^5.6.4",
     "@testing-library/jest-dom": "^4.2.4",
@@ -35,7 +36,9 @@
     "build": "REACT_APP_ENV=prod craco build",
     "test": "craco test",
     "serve": "npx serve -s build",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -54,6 +57,7 @@
   },
   "devDependencies": {
     "craco-alias": "^2.1.1",
+    "gh-pages": "^3.1.0",
     "serve": "^11.3.2",
     "webpackbar": "^4.0.0"
   }
