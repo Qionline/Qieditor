@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/Qieditor/static/css/main.0d0373c5.chunk.css",
-    "main.js": "/Qieditor/static/js/main.a18e082b.chunk.js",
-    "runtime-main.js": "/Qieditor/static/js/runtime-main.9f061c61.js",
-    "static/css/2.af068c56.chunk.css": "/Qieditor/static/css/2.af068c56.chunk.css",
-    "static/js/2.4890007b.chunk.js": "/Qieditor/static/js/2.4890007b.chunk.js",
-    "index.html": "/Qieditor/index.html",
-    "precache-manifest.1a29d387d50787af63121d1d7cb5659d.js": "/Qieditor/precache-manifest.1a29d387d50787af63121d1d7cb5659d.js",
-    "service-worker.js": "/Qieditor/service-worker.js",
-    "static/js/2.4890007b.chunk.js.LICENSE.txt": "/Qieditor/static/js/2.4890007b.chunk.js.LICENSE.txt",
-    "static/media/android.779ec794.svg": "/Qieditor/static/media/android.779ec794.svg",
-    "static/media/ios.f2f83998.svg": "/Qieditor/static/media/ios.f2f83998.svg"
+    "main.css": "/static/css/main.0d0373c5.chunk.css",
+    "main.js": "/static/js/main.0c3030e2.chunk.js",
+    "runtime-main.js": "/static/js/runtime-main.712f7022.js",
+    "static/css/2.af068c56.chunk.css": "/static/css/2.af068c56.chunk.css",
+    "static/js/2.ba5fca30.chunk.js": "/static/js/2.ba5fca30.chunk.js",
+    "index.html": "/index.html",
+    "precache-manifest.7ba68b6fa8423cd21fad426b0a620fbb.js": "/precache-manifest.7ba68b6fa8423cd21fad426b0a620fbb.js",
+    "service-worker.js": "/service-worker.js",
+    "static/js/2.ba5fca30.chunk.js.LICENSE.txt": "/static/js/2.ba5fca30.chunk.js.LICENSE.txt",
+    "static/media/android.779ec794.svg": "/static/media/android.779ec794.svg",
+    "static/media/ios.f2f83998.svg": "/static/media/ios.f2f83998.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.9f061c61.js",
+    "static/js/runtime-main.712f7022.js",
     "static/css/2.af068c56.chunk.css",
-    "static/js/2.4890007b.chunk.js",
+    "static/js/2.ba5fca30.chunk.js",
     "static/css/main.0d0373c5.chunk.css",
-    "static/js/main.a18e082b.chunk.js"
+    "static/js/main.0c3030e2.chunk.js"
   ]
 }
