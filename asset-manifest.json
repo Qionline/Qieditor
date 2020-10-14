@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/Qieditor/static/css/main.0d0373c5.chunk.css",
+    "main.js": "/Qieditor/static/js/main.a18e082b.chunk.js",
+    "runtime-main.js": "/Qieditor/static/js/runtime-main.9f061c61.js",
+    "static/css/2.af068c56.chunk.css": "/Qieditor/static/css/2.af068c56.chunk.css",
+    "static/js/2.4890007b.chunk.js": "/Qieditor/static/js/2.4890007b.chunk.js",
+    "index.html": "/Qieditor/index.html",
+    "precache-manifest.1a29d387d50787af63121d1d7cb5659d.js": "/Qieditor/precache-manifest.1a29d387d50787af63121d1d7cb5659d.js",
+    "service-worker.js": "/Qieditor/service-worker.js",
+    "static/js/2.4890007b.chunk.js.LICENSE.txt": "/Qieditor/static/js/2.4890007b.chunk.js.LICENSE.txt",
+    "static/media/android.779ec794.svg": "/Qieditor/static/media/android.779ec794.svg",
+    "static/media/ios.f2f83998.svg": "/Qieditor/static/media/ios.f2f83998.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9f061c61.js",
+    "static/css/2.af068c56.chunk.css",
+    "static/js/2.4890007b.chunk.js",
+    "static/css/main.0d0373c5.chunk.css",
+    "static/js/main.a18e082b.chunk.js"
+  ]
+}
