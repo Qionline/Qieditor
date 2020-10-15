@@ -97,7 +97,7 @@ const ConfComponent: React.FC = () => {
 
       <div className="conf-main">
         {confMenuState === "global" && (
-          <div className="config-common">
+          <div className="config-common conf-global-page">
             <div className="config-common-item">
               <Divider orientation="left">导出文件名</Divider>
               <div className="ctx">
@@ -133,19 +133,21 @@ const ConfComponent: React.FC = () => {
             <span className="title">
               {mainTree[componetSelectState].name}({componetSelectState})
             </span>
-            {Object.keys(mainTree[componetSelectState].params).length === 0 ? (
-              <div className="no-conf">该组件无配置项</div>
-            ) : (
-              Object.keys(mainTree[componetSelectState].params).map((v, i) => {
-                const el = mainTree[componetSelectState].params[v]
-                return (
-                  <div className="config-common-item" key={i}>
-                    <Divider orientation="left">{el.title}</Divider>
-                    <CompConfItem idx={v} type={el.type} value={el.value} />
-                  </div>
-                )
-              })
-            )}
+            <div className="conf-comp-page-container">
+              {Object.keys(mainTree[componetSelectState].params).length === 0 ? (
+                <div className="no-conf">该组件无配置项</div>
+              ) : (
+                Object.keys(mainTree[componetSelectState].params).map((v, i) => {
+                  const el = mainTree[componetSelectState].params[v]
+                  return (
+                    <div className="config-common-item" key={i}>
+                      <Divider orientation="left">{el.title}</Divider>
+                      <CompConfItem idx={v} type={el.type} value={el.value} />
+                    </div>
+                  )
+                })
+              )}
+            </div>
             <div className="conf-comp-page-btnGroup">
               <Button shape="round" type="primary" danger onClick={handleDelComponent}>
                 删除当前组件

@@ -17,7 +17,14 @@
       }
     }
 
+    .conf-global-page{
+      height: 100%;
+      overflow-y: scroll;
+    }
+
     .conf-comp-page {
+      height: 100%;
+      overflow: hidden;
       .title {
         display: block;
         padding: 10px 0 25px;
@@ -35,7 +42,12 @@
         color: #888;
       }
 
-      &-btnGroup{
+      &-container {
+        height: calc(100% - 120px);
+        overflow-y: scroll;
+      }
+
+      &-btnGroup {
         display: flex;
         justify-content: space-around;
         padding-top: 25px;
