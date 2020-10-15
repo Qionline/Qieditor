@@ -28,6 +28,7 @@ const FileMenu: React.FC = () => {
       handleSetComponentsTree(json.component)
       handleSetComponetSelectState(0)
     }
+    e.target.value = ""
   }
 
   const handleHtmlDownload = () => {
