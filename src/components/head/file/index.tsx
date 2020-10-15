@@ -2,12 +2,13 @@ import React from "react"
 import { Menu, Dropdown } from "antd"
 import { observer } from "mobx-react-lite"
 
+import { setJson2Store, setJson2String } from "@/utils/setJson"
 import { SData2Html } from "@/core/data2html"
 import { useDataStore, useStateStore } from "@/stores"
 
 const FileMenu: React.FC = () => {
   const { handleSetComponetSelectState } = useStateStore()
-  const { globalSetting, mainTree, componentsTree, handleSetGlobalSetting, handleSetMainTree, handleSetComponentsTree } = useDataStore()
+  const { globalSetting, mainTree } = useDataStore()
 
   const handleFileDownload = (content: string, type: string) => {
     const filename = `${globalSetting.filename}.${type}`
@@ -29,15 +30,7 @@ const FileMenu: React.FC = () => {
     const reader = new FileReader()
     reader.readAsText(selectedFile)
     reader.onload = function () {
-      let json = JSON.parse(this.result as string)
-      handleSetGlobalSetting({
-        filename: json.filename,
-        global: {
-          ...json.global,
-        },
-      })
-      handleSetMainTree(json.main)
-      handleSetComponentsTree(json.component)
+      setJson2Store(this.result as string)
       handleSetComponetSelectState(0)
     }
     e.target.value = ""
@@ -49,11 +42,7 @@ const FileMenu: React.FC = () => {
   }
 
   const handleJsonDownload = () => {
-    const content = JSON.stringify({
-      ...globalSetting,
-      main: [...mainTree],
-      component: [...componentsTree],
-    })
+    const content = setJson2String()
     handleFileDownload(content, "json")
   }
 
