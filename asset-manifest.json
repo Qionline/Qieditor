@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/static/css/main.0d0373c5.chunk.css",
-    "main.js": "/static/js/main.537e35ef.chunk.js",
+    "main.css": "/static/css/main.5e507304.chunk.css",
+    "main.js": "/static/js/main.907c03dc.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.712f7022.js",
     "static/css/2.af068c56.chunk.css": "/static/css/2.af068c56.chunk.css",
-    "static/js/2.3e939734.chunk.js": "/static/js/2.3e939734.chunk.js",
+    "static/js/2.49671df8.chunk.js": "/static/js/2.49671df8.chunk.js",
     "index.html": "/index.html",
-    "precache-manifest.fc4e1d2540d784310dd2d9f26478491c.js": "/precache-manifest.fc4e1d2540d784310dd2d9f26478491c.js",
+    "precache-manifest.9ff720fce8cdd70c74d60f3a4ebf7225.js": "/precache-manifest.9ff720fce8cdd70c74d60f3a4ebf7225.js",
     "service-worker.js": "/service-worker.js",
-    "static/js/2.3e939734.chunk.js.LICENSE.txt": "/static/js/2.3e939734.chunk.js.LICENSE.txt",
+    "static/js/2.49671df8.chunk.js.LICENSE.txt": "/static/js/2.49671df8.chunk.js.LICENSE.txt",
     "static/media/android.779ec794.svg": "/static/media/android.779ec794.svg",
     "static/media/ios.f2f83998.svg": "/static/media/ios.f2f83998.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.712f7022.js",
     "static/css/2.af068c56.chunk.css",
-    "static/js/2.3e939734.chunk.js",
-    "static/css/main.0d0373c5.chunk.css",
-    "static/js/main.537e35ef.chunk.js"
+    "static/js/2.49671df8.chunk.js",
+    "static/css/main.5e507304.chunk.css",
+    "static/js/main.907c03dc.chunk.js"
   ]
 }
