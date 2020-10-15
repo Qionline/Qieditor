@@ -9,6 +9,18 @@ const FileMenu: React.FC = () => {
   const { handleSetComponetSelectState } = useStateStore()
   const { globalSetting, mainTree, componentsTree, handleSetGlobalSetting, handleSetMainTree, handleSetComponentsTree } = useDataStore()
 
+  const handleFileDownload = (content: string, type: string) => {
+    const filename = `${globalSetting.filename}.${type}`
+    const eleLink = document.createElement("a")
+    eleLink.download = filename
+    eleLink.style.display = "none"
+    const blob = new Blob([content])
+    eleLink.href = URL.createObjectURL(blob)
+    document.body.appendChild(eleLink)
+    eleLink.click()
+    document.body.removeChild(eleLink)
+  }
+
   const handleFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files && e.target.files[0]
     if (!selectedFile) {
@@ -33,15 +45,7 @@ const FileMenu: React.FC = () => {
 
   const handleHtmlDownload = () => {
     const content = SData2Html(globalSetting, mainTree)
-    const filename = `${globalSetting.filename}.html`
-    const eleLink = document.createElement("a")
-    eleLink.download = filename
-    eleLink.style.display = "none"
-    const blob = new Blob([content])
-    eleLink.href = URL.createObjectURL(blob)
-    document.body.appendChild(eleLink)
-    eleLink.click()
-    document.body.removeChild(eleLink)
+    handleFileDownload(content, "html")
   }
 
   const handleJsonDownload = () => {
@@ -50,15 +54,7 @@ const FileMenu: React.FC = () => {
       main: [...mainTree],
       component: [...componentsTree],
     })
-    const filename = `${globalSetting.filename}.json`
-    const eleLink = document.createElement("a")
-    eleLink.download = filename
-    eleLink.style.display = "none"
-    const blob = new Blob([content])
-    eleLink.href = URL.createObjectURL(blob)
-    document.body.appendChild(eleLink)
-    eleLink.click()
-    document.body.removeChild(eleLink)
+    handleFileDownload(content, "json")
   }
 
   const menu = (
