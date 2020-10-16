@@ -76,10 +76,11 @@ Qieditor 通过解析导入.json的配置文件来生成可视化编辑页面，
 
 这里主要说几项需要注意的配置：
 
-- `global.direction`:
-- `global.css`与`global.js`:
+- `global.direction`: 该配置选项为`ltr`或者`rtl`，是用于调整阅读习惯的配置选项。
+- `global.css`与`global.js`: 全局的css与js，js会引入于dom加载完成后。
 - main与component中: 组件项的结构是相同的，但是注意id不能重复，这是用于区分不同组件的标识。
 - params中，key是用户自定义的，其值会在渲染htmkstr时通过<%key%>的形式使用。
+- params中。type目前支持 `text`，其他类型会在后续进行添加。
 
 ## 解析流程
 
