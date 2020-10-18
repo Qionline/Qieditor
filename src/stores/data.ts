@@ -13,9 +13,10 @@ export interface globalSettingProp {
     js: string
   }
 }
+export type ParamType = "text" | "textarea" | "link"
 export interface componentsTreePramasProp {
   [propName: string]: {
-    type: "text" | "textarea" | "link"
+    type: ParamType
     title: string
     value: string
   }
@@ -31,20 +32,17 @@ export class DataStore {
   @observable globalSetting: globalSettingProp = {
     ...globalTutorialConf,
   }
-
-  @observable mainTree: componentsTreeProp[] = [...mainTutorialConf]
-
-  @observable componentsTree: componentsTreeProp[] = [...componentsTutorialConf]
-
   @action.bound handleSetGlobalSetting(globalSetting: globalSettingProp) {
     this.globalSetting = globalSetting
   }
 
+  @observable mainTree: componentsTreeProp[] = [...mainTutorialConf]
   @action.bound handleSetMainTree(mainTree: componentsTreeProp[]) {
     this.mainTree = [...mainTree]
     setLocalDataStorage()
   }
 
+  @observable componentsTree: componentsTreeProp[] = [...componentsTutorialConf]
   @action.bound handleSetComponentsTree(componentsTree: componentsTreeProp[]) {
     this.componentsTree = componentsTree
     setLocalDataStorage()

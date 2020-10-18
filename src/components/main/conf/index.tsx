@@ -7,14 +7,15 @@ import { ColorResult, TwitterPicker } from "react-color"
 import { MenuInfo } from "rc-menu/lib/interface"
 import { RadioChangeEvent } from "antd/lib/radio/interface"
 import { confMenuStateProp } from "@/stores/state"
+import { ParamType } from "@/stores/data"
 
 import "./index.less"
 import { useDataStore, useStateStore } from "@/stores"
 
 interface CompConfItemProps {
   idx: string
-  type: "text" | "link" | "textarea"
   value: string
+  type: ParamType
 }
 
 const CompConfItem: React.FC<CompConfItemProps> = ({ idx, type, value }) => {
