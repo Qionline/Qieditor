@@ -9,7 +9,7 @@ import { componentsTreePramasProp } from "@/stores/data"
 
 const CompComponent: React.FC = () => {
   const { mainTree, componentsTree, handleSetMainTree, handleSetComponentsTree } = useDataStore()
-  const { componetSelectState, handleSetComponetSelectState } = useStateStore()
+  const { componetSelectState, handleSetComponetSelectState, handleSetConfMenuState } = useStateStore()
 
   const handleDragEnd = (result: DropResult) => {
     const { source, destination } = result
@@ -55,6 +55,10 @@ const CompComponent: React.FC = () => {
     handleSetComponentsTree([...compTreeArr])
   }
 
+  const handleClickComp = (i: number) => {
+    handleSetComponetSelectState(i)
+    handleSetConfMenuState("comp")
+  }
   return (
     <div className="comp-cmp">
       <div className="comp-title">
@@ -90,9 +94,7 @@ const CompComponent: React.FC = () => {
                       {(p, s) => {
                         return (
                           <div
-                            onClick={() => {
-                              handleSetComponetSelectState(i)
-                            }}
+                            onClick={() => handleClickComp(i)}
                             className={`comp-item-child  ${s.isDragging ? "comp-item-child-drag" : ""} ${componetSelectState === i ? "comp-item-child-active" : ""}`}
                             ref={p.innerRef}
                             {...p.draggableProps}

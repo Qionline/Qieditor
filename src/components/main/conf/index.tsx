@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import { Menu, Radio, Input, Divider, Button, Modal } from "antd"
 import { CloseCircleOutlined } from "@ant-design/icons"
 import { observer } from "mobx-react-lite"
@@ -6,6 +6,7 @@ import { ColorResult, TwitterPicker } from "react-color"
 
 import { MenuInfo } from "rc-menu/lib/interface"
 import { RadioChangeEvent } from "antd/lib/radio/interface"
+import { confMenuStateProp } from "@/stores/state"
 
 import "./index.less"
 import { useDataStore, useStateStore } from "@/stores"
@@ -37,13 +38,11 @@ const CompConfItem: React.FC<CompConfItemProps> = ({ idx, type, value }) => {
 }
 
 const ConfComponent: React.FC = () => {
-  const { componetSelectState, handleSetComponetSelectState } = useStateStore()
+  const { componetSelectState, handleSetComponetSelectState, confMenuState, handleSetConfMenuState } = useStateStore()
   const { globalSetting, mainTree, handleSetGlobalSetting, handleSetMainTree } = useDataStore()
 
-  const [confMenuState, setConfMenuState] = useState("global")
-
   const handleCheckedMenu = (e: MenuInfo) => {
-    setConfMenuState(e.key as string)
+    handleSetConfMenuState(e.key as confMenuStateProp)
   }
 
   const handleChangeFilename = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,7 +78,7 @@ const ConfComponent: React.FC = () => {
       onOk() {
         const tree = [...mainTree]
         tree.splice(componetSelectState, 1)
-        if (!tree.length) setConfMenuState("global")
+        if (!tree.length) handleSetConfMenuState("global")
         if (tree.length === componetSelectState) handleSetComponetSelectState(componetSelectState - 1)
         handleSetMainTree(tree)
       },
