@@ -3,6 +3,7 @@ import { observer } from "mobx-react-lite"
 
 import "./index.less"
 import FileMenu from "@/components/head/file"
+import FeatureMenu from "@/components/head/feature"
 import AssistMenu from "@/components/head/assist"
 
 const HeadComponent: React.FC = () => {
@@ -13,6 +14,7 @@ const HeadComponent: React.FC = () => {
         Qieditor
       </div>
       <FileMenu />
+      <FeatureMenu />
       <AssistMenu />
     </div>
   )

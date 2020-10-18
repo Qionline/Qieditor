@@ -1,5 +1,5 @@
 <p align="center">
- <img width="100px" src="./docs/images/logo.svg" align="center" alt="Tnshare Logo" />
+ <img width="100px" src="https://cdn.jsdelivr.net/gh/Qionline/Qieditor/docs/images/logo.svg" align="center" alt="Tnshare Logo" />
  <h2 align="center">Qieditor</h2>
  <p align="center">Qieditor 是一个 HTML 页面生成器：通过配置形式快速生成页面的可视化编辑工具，做到一次开发、多次生成，简化开发流程，提高开发流水线的生产效率。</p>
 </p>
@@ -116,7 +116,7 @@ params 中，type 目前支持 `text`、`radio` 两种类型
 4. 与此同时，Qieditor 会进行本地存储、注入展示页面可用的 js 脚本文件，进而生成可预览的 html
 5. 此时交予使用者进行页面配置、在配置完毕后生成可用的 html 文件。
 
-![](./docs/images/mind.png)
+![](https://cdn.jsdelivr.net/gh/Qionline/Qieditor/docs/images/mind.png)
 
 ## 最后
 
