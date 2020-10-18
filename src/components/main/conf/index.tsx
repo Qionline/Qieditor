@@ -7,31 +7,42 @@ import { ColorResult, TwitterPicker } from "react-color"
 import { MenuInfo } from "rc-menu/lib/interface"
 import { RadioChangeEvent } from "antd/lib/radio/interface"
 import { confMenuStateProp } from "@/stores/state"
-import { ParamType } from "@/stores/data"
+import { ParamTypeProp } from "@/stores/data"
 
 import "./index.less"
 import { useDataStore, useStateStore } from "@/stores"
 
 interface CompConfItemProps {
-  idx: string
-  value: string
-  type: ParamType
+  idx: number
+  paramKey: string
+  paramValue: ParamTypeProp
 }
 
-const CompConfItem: React.FC<CompConfItemProps> = ({ idx, type, value }) => {
-  const { componetSelectState } = useStateStore()
-  const { mainTree, handleSetMainTree } = useDataStore()
-
+const CompConfItem: React.FC<CompConfItemProps> = ({ idx, paramKey, paramValue }) => {
+  const { handleSetParamValue } = useDataStore()
   const handleChangedTextParams = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const res = [...mainTree]
-    res[componetSelectState].params[idx].value = e.target.value
-    handleSetMainTree(res)
+    handleSetParamValue(idx, e.target.value, paramKey)
+  }
+  const handleChangedRadioParams = (e: RadioChangeEvent) => {
+    handleSetParamValue(idx, e.target.value, paramKey)
   }
 
-  if (type === "text") {
+  if (paramValue.type === "text") {
     return (
       <div>
-        <Input value={mainTree[componetSelectState].params[idx].value} onChange={handleChangedTextParams} />
+        <Input value={paramValue.value} onChange={handleChangedTextParams} />
+      </div>
+    )
+  } else if (paramValue.type === "radio") {
+    return (
+      <div>
+        <Radio.Group onChange={handleChangedRadioParams} value={paramValue.value}>
+          {paramValue.radioArr.map((v, i) => (
+            <Radio key={i} value={v}>
+              {v}
+            </Radio>
+          ))}
+        </Radio.Group>
       </div>
     )
   }
@@ -125,6 +136,16 @@ const ConfComponent: React.FC = () => {
                 <TwitterPicker triangle="hide" color={globalSetting.global.bodyColor} onChangeComplete={handleChangeBgColor} />
               </div>
             </div>
+
+            {Object.keys(globalSetting.global.params).map((v, i) => {
+              const el = globalSetting.global.params[v]
+              return (
+                <div className="config-common-item" key={i}>
+                  <Divider orientation="left">{el.title}</Divider>
+                  <CompConfItem idx={-1} paramKey={v} paramValue={{ ...el }} />
+                </div>
+              )
+            })}
           </div>
         )}
 
@@ -142,7 +163,7 @@ const ConfComponent: React.FC = () => {
                   return (
                     <div className="config-common-item" key={i}>
                       <Divider orientation="left">{el.title}</Divider>
-                      <CompConfItem idx={v} type={el.type} value={el.value} />
+                      <CompConfItem idx={componetSelectState} paramKey={v} paramValue={{ ...el }} />
                     </div>
                   )
                 })

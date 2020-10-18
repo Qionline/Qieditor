@@ -31,11 +31,7 @@ const CompComponent: React.FC = () => {
     const [remove] = compTreeArr.splice(source.index, 1)
     let resParams: componentsTreePramasProp = {}
     Object.keys(remove.params).forEach(v => {
-      resParams[v] = {
-        value: remove.params[v].value,
-        title: remove.params[v].title,
-        type: remove.params[v].type,
-      }
+      resParams[v] = { ...remove.params[v] }
     })
     mainTreeArr.splice(destination.index, 0, {
       id: remove.id,
