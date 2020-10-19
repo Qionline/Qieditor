@@ -69,3 +69,11 @@ export const getQnToken = function (accessKey: string, secretKey: string, scope:
   const upload_token = accessKey + ":" + safe64(encoded_signed) + ":" + encoded
   return upload_token
 }
+
+export const getQnRegion = {
+  z0: "https://upload.qiniup.com",
+  z1: "https://pload-z1.qiniup.com",
+  z2: "https://upload-z2.qiniup.com",
+  na0: "https://upload-na0.qiniup.com",
+  as0: "https://upload-as0.qiniup.com",
+}

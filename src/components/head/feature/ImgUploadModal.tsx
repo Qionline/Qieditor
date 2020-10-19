@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react"
-import { Menu, Modal, Upload, Input, Button, message } from "antd"
+import { Menu, Modal, Upload, Input, Button, Select, message } from "antd"
 import { InboxOutlined } from "@ant-design/icons"
-import * as qiniu from "qiniu-js"
 
 import { RcCustomRequestOptions } from "antd/lib/upload/interface"
 
-import { getQnToken } from "@/utils/qiniu"
+import { getQnToken, getQnRegion } from "@/utils/qiniu"
 
 interface FormLabelProp {
   title: string
@@ -31,6 +30,7 @@ const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalStat
   const [qnSecretKey, setQnSecretKey] = useState("")
   const [qnImgUrl, setQnImgUrl] = useState("")
   const [qnScope, setQnScope] = useState("")
+  const [qnUpRegion, setQnUpRegion] = useState("z0")
 
   useEffect(() => {
     if (!modalState) return
@@ -45,6 +45,7 @@ const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalStat
     setQnSecretKey(qnConfig.secretKey)
     setQnImgUrl(qnConfig.imgUrl)
     setQnScope(qnConfig.qnScope)
+    setQnUpRegion(qnConfig.region)
   }, [modalState])
 
   const handleQnInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,6 +64,9 @@ const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalStat
         break
     }
   }
+  const handleQnSelectChange = (e: string) => {
+    setQnUpRegion(e)
+  }
   const handleQnUpdate = () => {
     const qnConfig = {
       type: "qn",
@@ -70,6 +74,7 @@ const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalStat
       secretKey: qnSecretKey,
       imgUrl: qnImgUrl,
       qnScope: qnScope,
+      region: qnUpRegion,
     }
     localStorage.setItem("QieditorUpImageConfig", JSON.stringify(qnConfig))
     message.success(`配置保存成功！`)
@@ -78,22 +83,40 @@ const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalStat
   const uploadProps = {
     multiple: true,
     customRequest(option: RcCustomRequestOptions) {
+      const config = localStorage.getItem("QieditorUpImageConfig")
+      if (!config) return
+      const QieditorUpImageConfig = {
+        ...JSON.parse(config),
+      }
       const file = option.file
       const key = `${qnImgUrl}${option.file.name}`
-      const token = getQnToken(qnAccessKey, qnSecretKey, qnScope)
-      let observable = qiniu.upload(file, key, token)
-      observable.subscribe({
-        next: res => {
-          option.onProgress({ percent: res.total.percent }, file)
+      const token = getQnToken(QieditorUpImageConfig.accessKey, QieditorUpImageConfig.secretKey, QieditorUpImageConfig.qnScope)
+      const xhr = new XMLHttpRequest()
+      xhr.open("POST", getQnRegion[QieditorUpImageConfig.region as "z0" | "z1" | "z2" | "na0" | "as0"], true)
+      xhr.upload.addEventListener(
+        "progress",
+        function (evt) {
+          if (evt.lengthComputable) {
+            const percentComplete = Math.round((evt.loaded * 100) / evt.total)
+            option.onProgress({ percent: percentComplete }, file)
+          }
         },
-        error: err => {
-          message.error("上传失败")
-        },
-        complete: response => {
+        false
+      )
+      xhr.onreadystatechange = function (response) {
+        if (xhr.readyState === 4 && xhr.status === 200 && xhr.responseText !== "") {
           option.onSuccess(response, file)
           message.success(`${file.name} 上传成功!`)
-        },
-      })
+        } else if (xhr.status !== 200) {
+          option.onError(new Error(xhr.responseText))
+        }
+      }
+      const formData = new FormData()
+      formData.append("file", file)
+      formData.append("token", token)
+      formData.append("key", key)
+      formData.append("fname", file.name)
+      xhr.send(formData)
     },
   }
 
@@ -138,10 +161,19 @@ const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalStat
               <FormLabel title="图片路径:">
                 <Input onChange={e => handleQnInputChange(e)} value={qnImgUrl} name="imgUrl" />
               </FormLabel>
+              <FormLabel title="空间:">
+                <Input onChange={e => handleQnInputChange(e)} value={qnScope} name="qnScope" />
+              </FormLabel>
 
               <div className="qn-form-bottom">
-                <FormLabel title="空间:">
-                  <Input onChange={e => handleQnInputChange(e)} value={qnScope} name="qnScope" />
+                <FormLabel title="存储地区:">
+                  <Select defaultValue={qnUpRegion} style={{ width: 150 }} onChange={e => handleQnSelectChange(e)}>
+                    <Select.Option value="z0">华东</Select.Option>
+                    <Select.Option value="z1">华北</Select.Option>
+                    <Select.Option value="z2">华南</Select.Option>
+                    <Select.Option value="na0">北美</Select.Option>
+                    <Select.Option value="as0">东南亚</Select.Option>
+                  </Select>
                 </FormLabel>
                 <Button onClick={handleQnUpdate}>更新配置</Button>
               </div>
