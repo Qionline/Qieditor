@@ -1,3 +1,19 @@
+// 表单Label样式
+.form-label {
+  display: flex;
+  margin-bottom: 15px;
+  &-title {
+    display: inline-block;
+    padding-right: 20px;
+    width: 120px;
+    text-align: right;
+    color: rgba(0, 0, 0, 0.85);
+  }
+  &-main {
+    flex: 1 1;
+  }
+}
+
 // 图片上传弹窗样式
 .image-upload-modal {
   .ant-modal-header {
@@ -37,6 +53,20 @@
       border: 1px solid #e0e0e0;
       border-top: none;
       border-radius: 0 0 10px 10px;
+
+      .ant-upload-list {
+        padding: 5px 0;
+        max-height: 150px;
+        overflow-y: scroll;
+      }
+    }
+  }
+
+  .qn-form {
+    padding: 15px 20px 0;
+    &-bottom {
+      display: flex;
+      justify-content: space-between;
     }
   }
 }

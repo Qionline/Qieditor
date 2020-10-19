@@ -1,32 +1,99 @@
-import React, { useState } from "react"
-import { Menu, Modal, Upload, message } from "antd"
+import React, { useState, useEffect } from "react"
+import { Menu, Modal, Upload, Input, Button, message } from "antd"
 import { InboxOutlined } from "@ant-design/icons"
+import * as qiniu from "qiniu-js"
 
-import { UploadChangeParam } from "antd/lib/upload/interface"
+import { RcCustomRequestOptions } from "antd/lib/upload/interface"
+
+import { getQnToken } from "@/utils/qiniu"
+
+interface FormLabelProp {
+  title: string
+}
+const FormLabel: React.FC<FormLabelProp> = ({ title, children }) => {
+  return (
+    <div className="form-label">
+      <span className="form-label-title">{title}</span>
+      <div className="form-label-main">{children}</div>
+    </div>
+  )
+}
 
 interface ImgUploadModalProp {
   modalState: boolean
   setModalState: React.Dispatch<React.SetStateAction<boolean>>
 }
-
 const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalState }) => {
   type currentProp = "upload" | "qn"
-
   const [current, setCurrent] = useState<currentProp>("upload")
+
+  const [qnAccessKey, setQnAccessKey] = useState("")
+  const [qnSecretKey, setQnSecretKey] = useState("")
+  const [qnImgUrl, setQnImgUrl] = useState("")
+  const [qnScope, setQnScope] = useState("")
+
+  useEffect(() => {
+    if (!modalState) return
+    const qnConfigString = localStorage.getItem("QieditorUpImageConfig")
+    if (!qnConfigString) {
+      message.warn("上传图片前请先完成配置修改!")
+      return
+    }
+    const qnConfig = JSON.parse(qnConfigString)
+    if (qnConfig.type !== "qn") return
+    setQnAccessKey(qnConfig.accessKey)
+    setQnSecretKey(qnConfig.secretKey)
+    setQnImgUrl(qnConfig.imgUrl)
+    setQnScope(qnConfig.qnScope)
+  }, [modalState])
+
+  const handleQnInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    switch (e.target.name) {
+      case "accessKey":
+        setQnAccessKey(e.target.value)
+        break
+      case "secretKey":
+        setQnSecretKey(e.target.value)
+        break
+      case "imgUrl":
+        setQnImgUrl(e.target.value)
+        break
+      case "qnScope":
+        setQnScope(e.target.value)
+        break
+    }
+  }
+  const handleQnUpdate = () => {
+    const qnConfig = {
+      type: "qn",
+      accessKey: qnAccessKey,
+      secretKey: qnSecretKey,
+      imgUrl: qnImgUrl,
+      qnScope: qnScope,
+    }
+    localStorage.setItem("QieditorUpImageConfig", JSON.stringify(qnConfig))
+    message.success(`配置保存成功！`)
+  }
+
   const uploadProps = {
-    name: "file",
     multiple: true,
-    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-    onChange(info: UploadChangeParam) {
-      const { status } = info.file
-      if (status !== "uploading") {
-        console.log(info.file, info.fileList)
-      }
-      if (status === "done") {
-        message.success(`${info.file.name} 上传成功!`)
-      } else if (status === "error") {
-        message.error(`${info.file.name} 上传失败!`)
-      }
+    customRequest(option: RcCustomRequestOptions) {
+      const file = option.file
+      const key = `${qnImgUrl}${option.file.name}`
+      const token = getQnToken(qnAccessKey, qnSecretKey, qnScope)
+      let observable = qiniu.upload(file, key, token)
+      observable.subscribe({
+        next: res => {
+          option.onProgress({ percent: res.total.percent }, file)
+        },
+        error: err => {
+          message.error("上传失败")
+        },
+        complete: response => {
+          option.onSuccess(response, file)
+          message.success(`${file.name} 上传成功!`)
+        },
+      })
     },
   }
 
@@ -34,12 +101,12 @@ const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalStat
     <Modal
       title="本地图片上传"
       visible={modalState}
-      okText="好 的"
-      cancelText="取 消"
+      okText="关闭"
       onOk={() => setModalState(false)}
       onCancel={() => setModalState(false)}
       width={600}
       className="image-upload-modal"
+      cancelButtonProps={{ style: { display: "none" } }}
     >
       <div className="image-upload-modal-main">
         <Menu className="image-upload-modal-main-head" onClick={({ key }) => setCurrent(key as currentProp)} selectedKeys={[current]} mode="horizontal">
@@ -60,7 +127,26 @@ const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalStat
             </div>
           )}
 
-          {current === "qn" && <div>1121</div>}
+          {current === "qn" && (
+            <div className="qn-form">
+              <FormLabel title="accessKey:">
+                <Input onChange={e => handleQnInputChange(e)} value={qnAccessKey} name="accessKey" />
+              </FormLabel>
+              <FormLabel title="secretKey:">
+                <Input onChange={e => handleQnInputChange(e)} value={qnSecretKey} name="secretKey" />
+              </FormLabel>
+              <FormLabel title="图片路径:">
+                <Input onChange={e => handleQnInputChange(e)} value={qnImgUrl} name="imgUrl" />
+              </FormLabel>
+
+              <div className="qn-form-bottom">
+                <FormLabel title="空间:">
+                  <Input onChange={e => handleQnInputChange(e)} value={qnScope} name="qnScope" />
+                </FormLabel>
+                <Button onClick={handleQnUpdate}>更新配置</Button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </Modal>
