@@ -12,7 +12,7 @@ export interface SData2HtmlFuncProp {
 export const SData2Html: SData2HtmlFuncProp = (globalSetting, mainTree, localString) => {
   let main = ""
   mainTree.forEach(el => {
-    const res = TmpReplace(el.htmlstr, el.params, globalSetting.global.params)
+    const res = TmpReplace(el.id, el.htmlstr, el.params, globalSetting.global.params)
     main += res
   })
 
@@ -35,6 +35,7 @@ export const SData2Html: SData2HtmlFuncProp = (globalSetting, mainTree, localStr
     <script>${globalSetting.global.js}</script>
 
     ${localString ? localString.ScrollPositonCache : ""}
+    
     </html>
   `
 }

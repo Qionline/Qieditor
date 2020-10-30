@@ -153,10 +153,10 @@ const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalStat
           {current === "qn" && (
             <div className="qn-form">
               <FormLabel title="accessKey:">
-                <Input onChange={e => handleQnInputChange(e)} value={qnAccessKey} name="accessKey" />
+                <Input.Password visibilityToggle={false} onChange={e => handleQnInputChange(e)} value={qnAccessKey} name="accessKey" />
               </FormLabel>
               <FormLabel title="secretKey:">
-                <Input onChange={e => handleQnInputChange(e)} value={qnSecretKey} name="secretKey" />
+                <Input.Password visibilityToggle={false} onChange={e => handleQnInputChange(e)} value={qnSecretKey} name="secretKey" />
               </FormLabel>
               <FormLabel title="图片路径:">
                 <Input onChange={e => handleQnInputChange(e)} value={qnImgUrl} name="imgUrl" />
