@@ -18,6 +18,14 @@ export type ParamTypeProp = ParamTextType | ParamRadioType
 export interface componentsTreePramasProp {
   [propName: string]: ParamTypeProp
 }
+export interface qnUploadConfigProp {
+  type: "qn"
+  accessKey: string
+  secretKey: string
+  imgUrl: string
+  qnScope: string
+  region: "z0" | "z1" | "z2" | "na0" | "as0"
+}
 export interface globalSettingProp {
   filename: string
   global: {
@@ -27,6 +35,7 @@ export interface globalSettingProp {
     css: string
     js: string
     params: componentsTreePramasProp
+    imgUpConfig?: qnUploadConfigProp
   }
 }
 

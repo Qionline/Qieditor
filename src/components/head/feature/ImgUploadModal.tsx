@@ -4,6 +4,7 @@ import { InboxOutlined } from "@ant-design/icons"
 
 import { RcCustomRequestOptions } from "antd/lib/upload/interface"
 
+import { STORAGE_NAME } from "@/core/feature/localDataStorage"
 import { getQnToken, getQnRegion } from "@/utils/qiniu"
 
 interface FormLabelProp {
@@ -34,19 +35,32 @@ const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalStat
 
   useEffect(() => {
     if (!modalState) return
-    const qnConfigString = localStorage.getItem("QieditorUpImageConfig")
+    const qnConfigString = localStorage.getItem(STORAGE_NAME)
     if (!qnConfigString) {
       message.warn("上传图片前请先完成配置修改!")
       return
     }
-    const qnConfig = JSON.parse(qnConfigString)
-    if (qnConfig.type !== "qn") return
+    const qnConfig = JSON.parse(qnConfigString).global?.imgUpConfig
+    if (!qnConfig || qnConfig.type !== "qn") {
+      setCurrent("qn")
+      message.warn("上传图片前请先完成配置修改并保存!")
+      return
+    }
     setQnAccessKey(qnConfig.accessKey)
     setQnSecretKey(qnConfig.secretKey)
     setQnImgUrl(qnConfig.imgUrl)
     setQnScope(qnConfig.qnScope)
     setQnUpRegion(qnConfig.region)
   }, [modalState])
+
+  const handleCloseModal = () => {
+    setModalState(false)
+    setQnAccessKey("")
+    setQnSecretKey("")
+    setQnImgUrl("")
+    setQnScope("")
+    setQnUpRegion("z0")
+  }
 
   const handleQnInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     switch (e.target.name) {
@@ -64,9 +78,7 @@ const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalStat
         break
     }
   }
-  const handleQnSelectChange = (e: string) => {
-    setQnUpRegion(e)
-  }
+
   const handleQnUpdate = () => {
     const qnConfig = {
       type: "qn",
@@ -76,17 +88,28 @@ const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalStat
       qnScope: qnScope,
       region: qnUpRegion,
     }
-    localStorage.setItem("QieditorUpImageConfig", JSON.stringify(qnConfig))
+    const qiConfigString = localStorage.getItem(STORAGE_NAME)
+    if (!qiConfigString) {
+      message.error(`配置保存失败，请先上传可用的模板文件！`)
+      return
+    }
+    const qiConfig = JSON.parse(qiConfigString)
+    qiConfig.global["imgUpConfig"] = {
+      ...qnConfig,
+    }
+    localStorage.setItem(STORAGE_NAME, JSON.stringify(qiConfig))
     message.success(`配置保存成功！`)
   }
 
   const uploadProps = {
     multiple: true,
     customRequest(option: RcCustomRequestOptions) {
-      const config = localStorage.getItem("QieditorUpImageConfig")
+      const config = localStorage.getItem(STORAGE_NAME)
       if (!config) return
-      const QieditorUpImageConfig = {
-        ...JSON.parse(config),
+      const QieditorUpImageConfig = JSON.parse(config).global?.imgUpConfig
+      if (!QieditorUpImageConfig || QieditorUpImageConfig.type !== "qn") {
+        message.error(`请确保配置文件填写正确！`)
+        return
       }
       const file = option.file
       const key = `${qnImgUrl}${option.file.name}`
@@ -125,8 +148,8 @@ const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalStat
       title="本地图片上传"
       visible={modalState}
       okText="关闭"
-      onOk={() => setModalState(false)}
-      onCancel={() => setModalState(false)}
+      onOk={() => handleCloseModal()}
+      onCancel={() => handleCloseModal()}
       width={600}
       className="image-upload-modal"
       cancelButtonProps={{ style: { display: "none" } }}
@@ -167,7 +190,7 @@ const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalStat
 
               <div className="qn-form-bottom">
                 <FormLabel title="存储地区:">
-                  <Select defaultValue={qnUpRegion} style={{ width: 150 }} onChange={e => handleQnSelectChange(e)}>
+                  <Select defaultValue={qnUpRegion} style={{ width: 150 }} onChange={e => setQnUpRegion(e)}>
                     <Select.Option value="z0">华东</Select.Option>
                     <Select.Option value="z1">华北</Select.Option>
                     <Select.Option value="z2">华南</Select.Option>
