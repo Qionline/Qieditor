@@ -9,7 +9,7 @@ const KEY_WORD = {
 // 字符串替换（替换<% %>中的内容）
 export const TmpReplace = function (id: number, tmp: string, compParams: componentsTreePramasProp, globalParams: componentsTreePramasProp): string {
   // 在根div中注入qid <div qid=`q${id}`></div>
-  const qidReg = /^<div/
+  const qidReg = /<div/
   tmp = tmp.replace(qidReg, `<div qid="q${id}"`)
 
   // 关键字替换
@@ -26,6 +26,7 @@ export const TmpReplace = function (id: number, tmp: string, compParams: compone
     if (compParams[param]) tmp = tmp.replace(new RegExp(value), compParams[param].value)
     if (globalParams[param]) tmp = tmp.replace(new RegExp(value), globalParams[param].value)
   }
+
 
   return tmp
 }
