@@ -51,14 +51,13 @@ Qieditor 通过解析导入.json 的配置文件来生成可视化编辑页面�
         "value": "我是globalTitle"
       }
     },
-    // 图片上传配置：同七牛云图片上传配置
     "imgUpConfig": {
       "type": "qn",
       "accessKey": "",
       "secretKey": "",
-      "imgUrl": "",
+      "imgUrl": "url/",
       "qnScope": "",
-      "region": "z0" //"z0" | "z1" | "z2" | "na0" | "as0"
+      "region": "z0"
     }
   },
   "main": [
@@ -88,32 +87,42 @@ Qieditor 通过解析导入.json 的配置文件来生成可视化编辑页面�
 
 你可以尝试创建 json 文件并将此导入 Qieditor 中，快速的熟悉配置的用法。
 
-### qieditor 关键字
-在qieditor中，有系统自定义的关键字，**在编写配置文件时，禁止使用系统内部关键字作为自定义变量**，否则会被覆盖。因为自定义变量的优先级低于系统关键字。
+### `global.imgUpConfig`
 
-**注意：关键字建议在组件中的script标签中使用、全局js无法解析关键字的内容**
+图片上传配置：同七牛云图片上传配置
+
+- `type`: 目前仅支持 "qn"
+- `accessKey` 和 `secretKey`:需要在七牛云控制台获取
+- `imgUrl`: 图片路径
+- `qnScope`: 七牛云空间名
+- `region`: "z0" | "z1" | "z2" | "na0" | "as0",其分别对应华东、华北、华南、北美、东南亚
+
+### qieditor 关键字
+
+在 qieditor 中，有系统自定义的关键字，**在编写配置文件时，禁止使用系统内部关键字作为自定义变量**，否则会被覆盖。因为自定义变量的优先级低于系统关键字。
+
+**注意：关键字建议在组件中的 script 标签中使用、全局 js 无法解析关键字的内容**
 
 #### 关键字：`<%Qid%>、<%QidDom%>`
 
-qieditor在生成页面时，会自动给最外层的div添加一个唯一的qid属性，用户可以通过`<%Qid%>`获取这个值，或者通过`<%QidDom%>`直接拿到当前组件的dom。
-
+qieditor 在生成页面时，会自动给最外层的 div 添加一个唯一的 qid 属性，用户可以通过`<%Qid%>`获取这个值，或者通过`<%QidDom%>`直接拿到当前组件的 dom。
 
 ### 参数类型
 
 params 中，type 目前支持 `text`、`radio` 两种类型
 
-**`text` 参数：** 
+**`text` 参数：**
+
 - type: `"text"`
 - title: `string`
 - value: `string`
 
-**`radio` 参数：** 
+**`radio` 参数：**
+
 - type: `"radio"`
 - title: `string`,
 - value: `string`
 - radioArr: `string[]`
-
-
 
 ### 注意
 
@@ -123,7 +132,6 @@ params 中，type 目前支持 `text`、`radio` 两种类型
 - `global.css`与`global.js`: 全局的 css 与 js，js 会引入于 dom 加载完成后。
 - main 与 component 中: 组件项的结构是相同的，但是注意 id 不能重复，这是用于区分不同组件的标识。
 - params 中，key 是用户自定义的，其值会在渲染 htmkstr 时通过<%key%>的形式使用。
-
 
 ## 解析流程
 
