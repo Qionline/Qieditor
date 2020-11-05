@@ -2,7 +2,6 @@ import React from "react"
 import { Menu, Radio, Input, Divider, Button, Modal } from "antd"
 import { CloseCircleOutlined } from "@ant-design/icons"
 import { observer } from "mobx-react-lite"
-import { ColorResult, TwitterPicker } from "react-color"
 
 import { MenuInfo } from "rc-menu/lib/interface"
 import { RadioChangeEvent } from "antd/lib/radio/interface"
@@ -11,6 +10,7 @@ import { ParamTypeProp } from "@/stores/data"
 
 import "./index.less"
 import { useDataStore, useStateStore } from "@/stores"
+import ColorPicker from '@/components/main/conf/colorPicker';
 
 interface CompConfItemProps {
   idx: number
@@ -72,9 +72,9 @@ const ConfComponent: React.FC = () => {
     res.global.direction = e.target.value
     handleSetGlobalSetting(res)
   }
-  const handleChangeBgColor = (color: ColorResult) => {
+  const handleChangeBgColor = (color: string) => {
     const res = globalSetting
-    res.global.bodyColor = color.hex
+    res.global.bodyColor = color
     handleSetGlobalSetting(res)
   }
 
@@ -133,7 +133,7 @@ const ConfComponent: React.FC = () => {
             <div className="config-common-item">
               <Divider orientation="left">背景颜色</Divider>
               <div className="ctx">
-                <TwitterPicker triangle="hide" color={globalSetting.global.bodyColor} onChangeComplete={handleChangeBgColor} />
+                <ColorPicker color={globalSetting.global.bodyColor} onChangeComplete={handleChangeBgColor} />
               </div>
             </div>
 
