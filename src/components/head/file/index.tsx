@@ -1,6 +1,7 @@
 import React from "react"
-import { Menu, Dropdown } from "antd"
+import { Menu, Dropdown, message } from "antd"
 import { observer } from "mobx-react-lite"
+import html2canvasfrom from "html2canvas"
 
 import { setJson2Store, setJson2String } from "@/utils/setJson"
 import { SData2Html } from "@/core/data2html"
@@ -30,8 +31,13 @@ const FileMenu: React.FC = () => {
     const reader = new FileReader()
     reader.readAsText(selectedFile)
     reader.onload = function () {
-      setJson2Store(this.result as string)
-      handleSetComponetSelectState(0)
+      try {
+        setJson2Store(this.result as string)
+        handleSetComponetSelectState(0)
+        message.success("配置导入成功!")
+      } catch (error) {
+        message.error("配置导入失败，请检查上传文件类型是否正确!")
+      }
     }
     e.target.value = ""
   }
@@ -44,6 +50,22 @@ const FileMenu: React.FC = () => {
   const handleJsonDownload = () => {
     const content = setJson2String()
     handleFileDownload(content, "json")
+  }
+
+  const handlePngDownload = () => {
+    const iframeDom = (document.getElementById("qiframe") as HTMLIFrameElement).contentWindow
+    if (!iframeDom) return
+    const qiappDom = iframeDom.document.getElementsByTagName("body")[0]
+    if (!qiappDom) return
+    html2canvasfrom(qiappDom, {
+      useCORS: true,
+    }).then(canvas => {
+      const base64image = canvas.toDataURL("image/png")
+      const a = document.createElement("a")
+      a.href = base64image
+      a.setAttribute("download", globalSetting.filename)
+      a.click()
+    })
   }
 
   const menu = (
@@ -61,6 +83,11 @@ const FileMenu: React.FC = () => {
         </span>
       </Menu.Item>
       <Menu.Item key="2">
+        <span className="menu-item" onClick={handlePngDownload}>
+          导出为图片
+        </span>
+      </Menu.Item>
+      <Menu.Item key="3">
         <span className="menu-item" onClick={handleHtmlDownload}>
           下载页面
         </span>

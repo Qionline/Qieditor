@@ -28,7 +28,7 @@ export const SData2Html: SData2HtmlFuncProp = (globalSetting, mainTree, localStr
     <style>body{background-color:${globalSetting.global.bodyColor};direction:${globalSetting.global.direction}}</style>
     <style>${globalSetting.global.css}</style>
     <body>
-      <div id="#sapp">${main}</div>
+      <div id="qiapp">${main}</div>
     </body>
     ${localString ? localString.TypeDisguise : ""}
 
