@@ -44,6 +44,8 @@ Qieditor 通过解析导入.json 的配置文件来生成可视化编辑页面�
     "bodyColor": "#e07300",
     "css": "body{color:#fff}",
     "js": "",
+    "externalCss": ["可选参数，里面填入字符串链接，用于引入外部的css"],
+    "externalJs": ["可选参数，里面填入字符串链接，用于引入外部的js"],
     "params": {
       "globalTitle": {
         "type": "text",
@@ -109,7 +111,7 @@ qieditor 在生成页面时，会自动给最外层的 div 添加一个唯一的
 
 ### 参数类型
 
-params 中，type 目前支持 `text`、`radio` 两种类型
+params 中，type 目前支持 `text`、`radio`、`color`
 
 **`text` 参数：**
 
@@ -123,6 +125,12 @@ params 中，type 目前支持 `text`、`radio` 两种类型
 - title: `string`,
 - value: `string`
 - radioArr: `string[]`
+
+**`color` 参数：**
+
+- type: `"color"`
+- title: `string`
+- value: `string` (如：#ffffff)
 
 ### 注意
 
