@@ -10,7 +10,7 @@ import { ParamTypeProp } from "@/stores/data"
 
 import "./index.less"
 import { useDataStore, useStateStore } from "@/stores"
-import ColorPicker from '@/components/main/conf/colorPicker';
+import ColorPicker from "@/components/main/conf/colorPicker"
 
 interface CompConfItemProps {
   idx: number
@@ -25,6 +25,9 @@ const CompConfItem: React.FC<CompConfItemProps> = ({ idx, paramKey, paramValue }
   }
   const handleChangedRadioParams = (e: RadioChangeEvent) => {
     handleSetParamValue(idx, e.target.value, paramKey)
+  }
+  const handleChangeColor = (e: string) => {
+    handleSetParamValue(idx, e, paramKey)
   }
 
   if (paramValue.type === "text") {
@@ -43,6 +46,12 @@ const CompConfItem: React.FC<CompConfItemProps> = ({ idx, paramKey, paramValue }
             </Radio>
           ))}
         </Radio.Group>
+      </div>
+    )
+  } else if (paramValue.type === "color") {
+    return (
+      <div>
+        <ColorPicker color={paramValue.value} onChangeComplete={handleChangeColor} />
       </div>
     )
   }

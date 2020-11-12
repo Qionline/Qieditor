@@ -14,7 +14,12 @@ interface ParamRadioType {
   value: string
   radioArr: string[]
 }
-export type ParamTypeProp = ParamTextType | ParamRadioType
+interface ParamColorType {
+  type: "color"
+  title: string
+  value: string
+}
+export type ParamTypeProp = ParamTextType | ParamRadioType | ParamColorType
 export interface componentsTreePramasProp {
   [propName: string]: ParamTypeProp
 }
