@@ -39,6 +39,8 @@ export interface globalSettingProp {
     bodyColor: string
     css: string
     js: string
+    externalCss?: string[]
+    externalJs?: string[]
     params: componentsTreePramasProp
     imgUpConfig?: qnUploadConfigProp
   }
