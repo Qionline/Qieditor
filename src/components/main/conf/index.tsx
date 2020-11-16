@@ -11,6 +11,7 @@ import { ParamTypeProp } from "@/stores/data"
 import "./index.less"
 import { useDataStore, useStateStore } from "@/stores"
 import ColorPicker from "@/components/main/conf/colorPicker"
+import ArrayConfigCmp from "@/components/main/conf/arrayConfig"
 
 interface CompConfItemProps {
   idx: number
@@ -54,7 +55,14 @@ const CompConfItem: React.FC<CompConfItemProps> = ({ idx, paramKey, paramValue }
         <ColorPicker color={paramValue.value} onChangeComplete={handleChangeColor} />
       </div>
     )
+  } else if (paramValue.type === "array") {
+    return (
+      <div>
+        <ArrayConfigCmp item={paramValue.item} valueArray={paramValue.value} />
+      </div>
+    )
   }
+
   return <div>配置文件有误，参数类型不存在</div>
 }
 

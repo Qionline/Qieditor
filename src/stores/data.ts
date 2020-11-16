@@ -3,23 +3,34 @@ import { action, observable } from "mobx"
 import { setLocalDataStorage } from "@/core/feature/localDataStorage"
 import { globalTutorialConf, mainTutorialConf, componentsTutorialConf } from "@/tutorial"
 
-interface ParamTextType {
+export interface ParamTextType {
   type: "text"
   title: string
   value: string
 }
-interface ParamRadioType {
+export interface ParamRadioType {
   type: "radio"
   title: string
   value: string
   radioArr: string[]
 }
-interface ParamColorType {
+export interface ParamColorType {
   type: "color"
   title: string
   value: string
 }
-export type ParamTypeProp = ParamTextType | ParamRadioType | ParamColorType
+export interface ParamArrayType {
+  type: "array"
+  title: string
+  template: string
+  item: ParamArrayParamTypeProp
+  value: ParamArrayParamTypeProp[]
+}
+
+export interface ParamArrayParamTypeProp {
+  [propName: string]: ParamTextType | ParamRadioType | ParamColorType
+}
+export type ParamTypeProp = ParamTextType | ParamRadioType | ParamColorType | ParamArrayType
 export interface componentsTreePramasProp {
   [propName: string]: ParamTypeProp
 }
