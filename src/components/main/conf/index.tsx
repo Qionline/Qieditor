@@ -19,7 +19,7 @@ interface CompConfItemProps {
   paramValue: ParamTypeProp
 }
 
-const CompConfItem: React.FC<CompConfItemProps> = ({ idx, paramKey, paramValue }) => {
+export const CompConfItem: React.FC<CompConfItemProps> = ({ idx, paramKey, paramValue }) => {
   const { handleSetParamValue } = useDataStore()
   const handleChangedTextParams = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleSetParamValue(idx, e.target.value, paramKey)

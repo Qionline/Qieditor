@@ -1,0 +1,35 @@
+.arrayConfig-cls {
+  &-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #eee;
+
+    &-left {
+    }
+
+    &-right {
+      display: flex;
+      align-items: center;
+      padding-left: 25px;
+
+      .close-icon {
+        font-size: 25px;
+        color: #ddd;
+        transition: 0.3s color ease;
+        cursor: pointer;
+        &:hover {
+          color: #ff4d4f;
+        }
+      }
+    }
+
+    &-param {
+    }
+
+    & + & {
+      margin-top: 10px;
+    }
+  }
+}
