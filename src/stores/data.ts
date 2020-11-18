@@ -26,11 +26,11 @@ export interface ParamArrayType {
   item: ParamArrayParamTypeProp
   value: ParamArrayParamTypeProp[]
 }
-
-export interface ParamArrayParamTypeProp {
-  [propName: string]: ParamTextType | ParamRadioType | ParamColorType
-}
+export type ParamArrayTypeProp = ParamTextType | ParamRadioType | ParamColorType
 export type ParamTypeProp = ParamTextType | ParamRadioType | ParamColorType | ParamArrayType
+export interface ParamArrayParamTypeProp {
+  [propName: string]: ParamArrayTypeProp
+}
 export interface componentsTreePramasProp {
   [propName: string]: ParamTypeProp
 }
@@ -85,7 +85,7 @@ export class DataStore {
     setLocalDataStorage()
   }
 
-  @action.bound handleSetParamValue(idx: number, value: string, paramKey: string) {
+  @action.bound handleSetParamValue(idx: number, value: string | ParamArrayParamTypeProp[], paramKey: string) {
     // idx === -1 为global
     if (idx === -1) {
       this.globalSetting.global.params[paramKey].value = value

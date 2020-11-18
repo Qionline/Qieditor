@@ -7,6 +7,16 @@
     border: 1px solid #eee;
 
     &-left {
+      flex: 1;
+      .item-empty {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 50px;
+        font-size: 14px;
+        color: #888;
+      }
     }
 
     &-right {
@@ -26,10 +36,39 @@
     }
 
     &-param {
+      display: flex;
+      align-items: center;
+      & + & {
+        padding-top: 25px;
+      }
+      &-title {
+        padding-right: 10px;
+        font-weight: bold;
+      }
     }
 
     & + & {
       margin-top: 10px;
+    }
+  }
+
+  &-addBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    height: 30px;
+    color: #ddd;
+    border: 1.5px solid #ddd;
+    border-radius: 30px;
+    transition: 0.3s all ease;
+    cursor: pointer;
+    &:hover {
+      color: #2fca10;
+      border-color: #2fca10;
+    }
+    & > span {
+      font-size: 20px;
     }
   }
 }
