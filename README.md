@@ -132,6 +132,39 @@ params 中，type 目前支持 `text`、`radio`、`color`
 - title: `string`
 - value: `string` (如：#ffffff)
 
+**`array` 参数：**
+
+- type: `"array"`
+- title: `string`,
+- template: `string` (html 字符串，Qieditor 会根据 value 中的值循环解析这部分 html 字符串)
+- item: `Object` (同 parmas)
+- value: `Object[]` (其子项结构需与 item 相同)
+
+```javascript
+// 可将 array 中的template和item理解为和父项的 htmlstr 和 params的数据类型一致...
+{
+  "type": "array",
+  "title": "测试数组变量",
+  "template": "<div>变量p1:<%p1%>,</div>",
+  "item": {
+    "p1": {
+      "type": "text",
+      "title": "测试数组变量p1",
+      "value": "我是p1"
+    }
+  },
+  "value": [
+    {
+      "p1": {
+        "type": "text",
+        "title": "测试数组变量p1",
+        "value": "我是p1的实例，我会被渲染"
+      }
+    }
+  ]
+}
+```
+
 ### 注意
 
 这里主要说几项需要注意的配置：
