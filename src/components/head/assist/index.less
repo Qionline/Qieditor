@@ -1,13 +1,42 @@
 // 关于弹窗样式
-.about-title{
+.about-title {
   display: flex;
   justify-content: space-between;
   padding-bottom: 18px;
   font-size: 22px;
   font-weight: bold;
   color: #e07300;
-  img{
+  img {
     margin-left: 5px;
     height: 18px;
+  }
+}
+
+// 版本信息弹窗样式
+.version-modal-cls {
+  height: 350px;
+  overflow-y: scroll;
+
+  .version-info-item {
+    padding-top: 3px;
+    span {
+      color: #e07300;
+      font-weight: bold;
+      font-size: 15px;
+      i {
+        font-size: 12px;
+        color: #bbb;
+      }
+    }
+
+    ul {
+      list-style: decimal;
+      padding-top: 5px;
+      padding-left: 20px;
+      font-size: 14px;
+      li {
+        padding-top: 5px;
+      }
+    }
   }
 }
