@@ -2,15 +2,16 @@ import React from "react"
 import { Menu, Radio, Input, Divider, Button, Modal } from "antd"
 import { CloseCircleOutlined } from "@ant-design/icons"
 import { observer } from "mobx-react-lite"
-import { ColorResult, TwitterPicker } from "react-color"
 
 import { MenuInfo } from "rc-menu/lib/interface"
 import { RadioChangeEvent } from "antd/lib/radio/interface"
 import { confMenuStateProp } from "@/stores/state"
-import { ParamTypeProp } from "@/stores/data"
+import { ParamTypeProp, ParamArrayParamTypeProp } from "@/stores/data"
 
 import "./index.less"
 import { useDataStore, useStateStore } from "@/stores"
+import ColorPicker from "@/components/main/conf/colorPicker"
+import ArrayConfigCmp from "@/components/main/conf/arrayConfig"
 
 interface CompConfItemProps {
   idx: number
@@ -18,25 +19,22 @@ interface CompConfItemProps {
   paramValue: ParamTypeProp
 }
 
-const CompConfItem: React.FC<CompConfItemProps> = ({ idx, paramKey, paramValue }) => {
+export const CompConfItem: React.FC<CompConfItemProps> = ({ idx, paramKey, paramValue }) => {
   const { handleSetParamValue } = useDataStore()
-  const handleChangedTextParams = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleSetParamValue(idx, e.target.value, paramKey)
-  }
-  const handleChangedRadioParams = (e: RadioChangeEvent) => {
-    handleSetParamValue(idx, e.target.value, paramKey)
-  }
 
+  const handleChangedParams = (res: string | ParamArrayParamTypeProp[]) => {
+    handleSetParamValue(idx, res, paramKey)
+  }
   if (paramValue.type === "text") {
     return (
       <div>
-        <Input value={paramValue.value} onChange={handleChangedTextParams} />
+        <Input value={paramValue.value} onChange={e => handleChangedParams(e.target.value)} />
       </div>
     )
   } else if (paramValue.type === "radio") {
     return (
       <div>
-        <Radio.Group onChange={handleChangedRadioParams} value={paramValue.value}>
+        <Radio.Group onChange={e => handleChangedParams(e.target.value)} value={paramValue.value}>
           {paramValue.radioArr.map((v, i) => (
             <Radio key={i} value={v}>
               {v}
@@ -45,7 +43,20 @@ const CompConfItem: React.FC<CompConfItemProps> = ({ idx, paramKey, paramValue }
         </Radio.Group>
       </div>
     )
+  } else if (paramValue.type === "color") {
+    return (
+      <div>
+        <ColorPicker color={paramValue.value} onChangeComplete={e => handleChangedParams(e)} />
+      </div>
+    )
+  } else if (paramValue.type === "array") {
+    return (
+      <div>
+        <ArrayConfigCmp item={paramValue.item} valueArray={paramValue.value} onChangeComplete={e => handleChangedParams(e)} />
+      </div>
+    )
   }
+
   return <div>配置文件有误，参数类型不存在</div>
 }
 
@@ -72,9 +83,9 @@ const ConfComponent: React.FC = () => {
     res.global.direction = e.target.value
     handleSetGlobalSetting(res)
   }
-  const handleChangeBgColor = (color: ColorResult) => {
+  const handleChangeBgColor = (color: string) => {
     const res = globalSetting
-    res.global.bodyColor = color.hex
+    res.global.bodyColor = color
     handleSetGlobalSetting(res)
   }
 
@@ -133,7 +144,7 @@ const ConfComponent: React.FC = () => {
             <div className="config-common-item">
               <Divider orientation="left">背景颜色</Divider>
               <div className="ctx">
-                <TwitterPicker triangle="hide" color={globalSetting.global.bodyColor} onChangeComplete={handleChangeBgColor} />
+                <ColorPicker color={globalSetting.global.bodyColor} onChangeComplete={handleChangeBgColor} />
               </div>
             </div>
 

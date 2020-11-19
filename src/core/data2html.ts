@@ -16,6 +16,9 @@ export const SData2Html: SData2HtmlFuncProp = (globalSetting, mainTree, localStr
     main += res
   })
 
+  const externalCss = globalSetting.global?.externalCss ? [...globalSetting.global.externalCss] : []
+  const externalJs = globalSetting.global?.externalJs ? [...globalSetting.global.externalJs] : []
+
   return `
   <!DOCTYPE html>
   <html>
@@ -24,14 +27,16 @@ export const SData2Html: SData2HtmlFuncProp = (globalSetting, mainTree, localStr
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
       <meta http-equiv="X-UA-Compatible" content="ie=edge" />
       <title>${globalSetting.global.title}</title>
+      ${externalCss.map(v => `<link rel="stylesheet" href="${v}" />`).join('')}
     </head>
     <style>body{background-color:${globalSetting.global.bodyColor};direction:${globalSetting.global.direction}}</style>
     <style>${globalSetting.global.css}</style>
     <body>
-      <div id="#sapp">${main}</div>
+      <div id="qiapp">${main}</div>
     </body>
     ${localString ? localString.TypeDisguise : ""}
 
+    ${externalJs.map(v => `<script src="${v}"></script>`).join('')}
     <script>${globalSetting.global.js}</script>
 
     ${localString ? localString.ScrollPositonCache : ""}

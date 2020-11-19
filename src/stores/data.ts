@@ -3,18 +3,34 @@ import { action, observable } from "mobx"
 import { setLocalDataStorage } from "@/core/feature/localDataStorage"
 import { globalTutorialConf, mainTutorialConf, componentsTutorialConf } from "@/tutorial"
 
-interface ParamTextType {
+export interface ParamTextType {
   type: "text"
   title: string
   value: string
 }
-interface ParamRadioType {
+export interface ParamRadioType {
   type: "radio"
   title: string
   value: string
   radioArr: string[]
 }
-export type ParamTypeProp = ParamTextType | ParamRadioType
+export interface ParamColorType {
+  type: "color"
+  title: string
+  value: string
+}
+export interface ParamArrayType {
+  type: "array"
+  title: string
+  template: string
+  item: ParamArrayParamTypeProp
+  value: ParamArrayParamTypeProp[]
+}
+export type ParamArrayTypeProp = ParamTextType | ParamRadioType | ParamColorType
+export type ParamTypeProp = ParamTextType | ParamRadioType | ParamColorType | ParamArrayType
+export interface ParamArrayParamTypeProp {
+  [propName: string]: ParamArrayTypeProp
+}
 export interface componentsTreePramasProp {
   [propName: string]: ParamTypeProp
 }
@@ -34,6 +50,8 @@ export interface globalSettingProp {
     bodyColor: string
     css: string
     js: string
+    externalCss?: string[]
+    externalJs?: string[]
     params: componentsTreePramasProp
     imgUpConfig?: qnUploadConfigProp
   }
@@ -67,7 +85,7 @@ export class DataStore {
     setLocalDataStorage()
   }
 
-  @action.bound handleSetParamValue(idx: number, value: string, paramKey: string) {
+  @action.bound handleSetParamValue(idx: number, value: string | ParamArrayParamTypeProp[], paramKey: string) {
     // idx === -1 为global
     if (idx === -1) {
       this.globalSetting.global.params[paramKey].value = value
