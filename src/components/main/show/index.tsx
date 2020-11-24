@@ -47,8 +47,8 @@ const ShowComponent: React.FC = () => {
           android
         </div>
       </div>
-      <div className="show-cmp-title">{globalSetting.global.title}</div>
       <div className="show-cmp-box">
+        <div className="show-cmp-title">{globalSetting.global.title}</div>
         <iframe id="qiframe" title="qieditor" width="100%" height="100%" frameBorder="0" srcDoc={SData2Html(globalSetting, mainTree, Local2Html(localSetting))} />
       </div>
     </div>
