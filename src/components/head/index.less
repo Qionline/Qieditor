@@ -1,39 +1,65 @@
 .head-cmp {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   height: 100%;
+  .head-menu {
+    display: flex;
+    align-items: center;
+    height: 100%;
 
-  .logo {
-    font-size: 18px;
-    padding-right: 20px;
-    font-weight: bold;
-    color: #e07300;
-    img {
-      margin-top: -5px;
-      margin-right: 5px;
-      height: 20px;
+    .logo {
+      font-size: 18px;
+      padding-right: 20px;
+      font-weight: bold;
+      color: #e07300;
+      img {
+        margin-top: -5px;
+        margin-right: 5px;
+        height: 20px;
+      }
+      i {
+        font-size: 12px;
+      }
     }
-    i {
-      font-size: 12px;
+    .head-bar-item {
+      padding: 0 15px;
+      text-align: center;
+      font-size: 13.5px;
+      color: #333;
+      cursor: pointer;
+
+      & + .head-bar-item {
+        position: relative;
+        &::before {
+          position: absolute;
+          left: 0;
+          top: 25%;
+          height: 50%;
+          border-left: 1px solid #aaa;
+          content: "";
+        }
+      }
     }
   }
 
-  .head-bar-item {
-    padding: 0 15px;
-    text-align: center;
-    font-size: 13.5px;
-    color: #333;
-    cursor: pointer;
-
-    & + .head-bar-item {
-      position: relative;
-      &::before {
-        position: absolute;
-        left: 0;
-        top: 25%;
-        height: 50%;
-        border-left: 1px solid #aaa;
-        content: "";
+  .head-tools {
+    display: flex;
+    padding-right: 20px;
+    font-size: 20px;
+    color: #666;
+    &-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      transition: 0.3s all ease;
+      &:hover {
+        background-color: #e07300;
+        border-radius: 50%;
+        color: #fefefe;
       }
     }
   }
