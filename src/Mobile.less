@@ -1,0 +1,36 @@
+@media only screen and (max-width: 900px) {
+  .head-bar {
+    display: none;
+  }
+
+  .main-container {
+    height: 100% !important;
+    .components-container {
+      display: none;
+    }
+
+    .show-container {
+      padding: 0 !important;
+      .show-cmp {
+        padding: 0;
+        &-phoneType {
+          display: none;
+        }
+
+        &-title {
+          display: none;
+        }
+        &-box {
+          padding: 0;
+          width: 100% !important;
+          box-sizing: border-box;
+          border-radius: 0;
+        }
+      }
+    }
+
+    .config-container {
+      display: none;
+    }
+  }
+}
