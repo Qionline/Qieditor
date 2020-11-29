@@ -5,7 +5,8 @@
   .conf-main {
     padding: 15px 20px;
     height: calc(100% - 48px);
-    overflow-y: scroll;
+    overflow-y: auto;
+    overflow-y: overlay;
 
     .config-common {
       padding: 15px;
@@ -17,9 +18,10 @@
       }
     }
 
-    .conf-global-page{
+    .conf-global-page {
       height: 100%;
-      overflow-y: scroll;
+      overflow-y: auto;
+      overflow-y: overlay;
     }
 
     .conf-comp-page {
@@ -44,7 +46,8 @@
 
       &-container {
         height: calc(100% - 120px);
-        overflow-y: scroll;
+        overflow-y: auto;
+        overflow-y: overlay;
       }
 
       &-btnGroup {
