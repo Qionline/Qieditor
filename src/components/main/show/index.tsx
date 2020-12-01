@@ -1,8 +1,7 @@
 import React, { useEffect } from "react"
+import { AndroidFilled, AppleFilled } from "@ant-design/icons"
 import { observer } from "mobx-react-lite"
 
-import { ReactComponent as IosSVG } from "@/images/ios.svg"
-import { ReactComponent as AndroidSVG } from "@/images/android.svg"
 import "./index.less"
 import { ScrollPositonSetting } from "@/core/feature/scrollPositionCache"
 import { useDataStore, useLocalSettingStore } from "@/stores"
@@ -34,7 +33,7 @@ const ShowComponent: React.FC = () => {
           }}
           className={localSetting.phoneType === "ios" ? "show-cmp-phoneType-active" : ""}
         >
-          <IosSVG style={{ fill: localSetting.phoneType === "ios" ? "#fff" : "#e07300" }} />
+          <AppleFilled style={{ fill: localSetting.phoneType === "ios" ? "#fff" : "#e07300" }} />
           ios
         </div>
         <div
@@ -43,13 +42,13 @@ const ShowComponent: React.FC = () => {
           }}
           className={localSetting.phoneType === "android" ? "show-cmp-phoneType-active" : ""}
         >
-          <AndroidSVG style={{ fill: localSetting.phoneType === "android" ? "#fff" : "#e07300" }} />
+          <AndroidFilled style={{ fill: localSetting.phoneType === "android" ? "#fff" : "#e07300" }} />
           android
         </div>
       </div>
-      <div className="show-cmp-title">{globalSetting.global.title}</div>
       <div className="show-cmp-box">
-        <iframe id="qiframe" title="qieditor" width="100%" height="100%" frameBorder="0" srcDoc={SData2Html(globalSetting, mainTree, Local2Html(localSetting))} />
+        <div className="show-cmp-title">{globalSetting.global.title}</div>
+        <iframe id="qiframe" name="qiframe" title="qieditor" width="100%" height="100%" frameBorder="0" srcDoc={SData2Html(globalSetting, mainTree, Local2Html(localSetting))} />
       </div>
     </div>
   )

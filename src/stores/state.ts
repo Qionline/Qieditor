@@ -3,8 +3,6 @@ import { action, observable } from "mobx"
 export type confMenuStateProp = "global" | "comp"
 
 export class StateStore {
-  // 版本信息
-  @observable versionNumber = "1.2.0"
 
   // 选中的组件位置
   @observable componetSelectState = 0

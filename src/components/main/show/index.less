@@ -7,7 +7,7 @@
 
   &-phoneType {
     display: flex;
-    margin: 0 auto 10px;
+    margin: 0 auto 15px;
     width: 300px;
     font-size: 15px;
     color: #e07300;
@@ -36,17 +36,27 @@
   }
 
   &-title {
-    margin: 0px auto 10px;
-    width: 375px;
+    // display: none;
+    // margin: 0px auto 10px;
+    // width: 375px;
+    position: absolute;
+    top: 15px;
+    left: 40px;
+    right: 40px;
+    color: #aaa;
+    text-align: center;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
   }
   &-box {
     flex: 1;
+    position: relative;
     margin: 0 auto;
-    width: 375px;
-    background-color: #fff;
-    border-radius: 2px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 50px 14px 35px;
+    width: 365px;
+    background-color: #dedede;
+    border-radius: 40px;
+    box-sizing: content-box;
   }
 }

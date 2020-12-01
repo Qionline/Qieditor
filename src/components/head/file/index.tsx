@@ -54,16 +54,22 @@ const FileMenu: React.FC = () => {
 
   const handlePngDownload = () => {
     const iframeDom = (document.getElementById("qiframe") as HTMLIFrameElement).contentWindow
-    if (!iframeDom) return
+    if (!iframeDom) {
+      message.error("图片导出失败！")
+      return
+    }
     const qiappDom = iframeDom.document.getElementsByTagName("body")[0]
-    if (!qiappDom) return
+    if (!qiappDom) {
+      message.error("图片导出失败！")
+      return
+    }
     html2canvasfrom(qiappDom, {
       useCORS: true,
     }).then(canvas => {
       const base64image = canvas.toDataURL("image/png")
       const a = document.createElement("a")
       a.href = base64image
-      a.setAttribute("download", globalSetting.filename)
+      a.setAttribute("download", globalSetting.filename + ".png")
       a.click()
     })
   }

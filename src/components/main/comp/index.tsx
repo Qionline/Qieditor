@@ -51,7 +51,9 @@ const CompComponent: React.FC = () => {
     handleSetComponentsTree([...compTreeArr])
   }
 
-  const handleClickComp = (i: number) => {
+  const handleClickComp = (i: number, id: number) => {
+    const iframeDom = (document.getElementById("qiframe") as HTMLIFrameElement).contentWindow
+    ;(iframeDom as any).QiSelectQid(id)
     handleSetComponetSelectState(i)
     handleSetConfMenuState("comp")
   }
@@ -90,7 +92,7 @@ const CompComponent: React.FC = () => {
                       {(p, s) => {
                         return (
                           <div
-                            onClick={() => handleClickComp(i)}
+                            onClick={() => handleClickComp(i, t.id)}
                             className={`comp-item-child  ${s.isDragging ? "comp-item-child-drag" : ""} ${componetSelectState === i ? "comp-item-child-active" : ""}`}
                             ref={p.innerRef}
                             {...p.draggableProps}
