@@ -5,9 +5,10 @@ import { localSettingProp } from "@/stores/local"
 import { localSettingStores } from "@/stores"
 
 export interface Local2HtmlProp {
-  ScrollBarHideStyle: string
-  TypeDisguise: string
-  ScrollPositonCache: string
+  ScrollBarHideStyle: string // iframe scroll bar style
+  TypeDisguise: string // phone type deceive
+  ScrollPositonCache: string // scroll positon cache
+  ComponentScrollToPagePos: string // component scroll to page position
 }
 
 export const Local2Html = (localSetting: localSettingProp): Local2HtmlProp => {
@@ -24,5 +25,6 @@ export const Local2Html = (localSetting: localSettingProp): Local2HtmlProp => {
     </style>`,
     TypeDisguise: `<script>${TypeDisguise(localSetting.phoneType)}</script>`,
     ScrollPositonCache: `<script>${ScrollPositonCache(localSetting.scrollPosition)}</script>`,
+    ComponentScrollToPagePos: `<script>function QiSelectQid(id){document.querySelectorAll('[qid="q'+id+'"]')[0].scrollIntoView()}</script>`,
   }
 }

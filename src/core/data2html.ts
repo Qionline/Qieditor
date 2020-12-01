@@ -41,7 +41,7 @@ export const SData2Html: SData2HtmlFuncProp = (globalSetting, mainTree, localStr
     <script>${globalSetting.global.js}</script>
 
     ${localString ? localString.ScrollPositonCache : ""}
-    
+    ${localString ? localString.ComponentScrollToPagePos : ""}
     </html>
   `
 }
