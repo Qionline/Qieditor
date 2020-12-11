@@ -59,4 +59,47 @@ export const componentsTutorialConf: componentsTreeProp[] = [
     htmlstr:
       '<div>\n        <h4 class="title-common indigo-text"><%globalTitle%>尝试修改配置</h4>\n        <div class="text-common indigo-p"><%testp%></div>\n\n        <h4>👆👆 菜单/文件介绍 👆👆</h4>\n        <div class="text-common purple-p" style="margin-bottom: 0.2rem;">\n          <div>导入配置文件：把配置文件导入页面（⚠️注意要导入.json结尾的配置文件）</div>\n          <div>----------------------------------------</div>\n          <div>导出配置文件：导出的配置文件会保存你当前的更改内容</div>\n          <div>----------------------------------------</div>\n          <div>下载页面：下载出浏览器可读的html文件，将此页面放置于服务器即可正常访问页面内容！</div>\n        <div>----------------------------------------</div>\n   <div>导出为图片：将整个页面导出为一张完整的PNG图片</div> \n  <div>----------------------------------------</div>\n          <div>最后：你可以尝试先导出该配置文件，然后刷新页面，再导入改配置文件查看效果</div>\n        </div>\n      </div>',
   },
+  {
+    id: 4,
+    name: "各类型配置测试组件",
+    params: {
+      testT: {
+        type: "text",
+        title: "文本类型",
+        value: "我是文本",
+      },
+      testR: {
+        type: "radio",
+        title: "单选类型",
+        value: "选项1",
+        radioArr: ["选项1", "选项2"],
+      },
+      testC: {
+        type: "color",
+        title: "颜色类型",
+        value: "#f00",
+      },
+      testArr: {
+        type: "array",
+        title: "列表类型",
+        template: "<div><h4 class='title-common'>列表类型</h4><div class='text-common yellow-p'><div>文本内容：<%testAT%></div><div>单选内容：<%testAR%></div></div></div>",
+        item: {
+          testAT: {
+            type: "text",
+            title: "列表文本类型",
+            value: "我是列表文本",
+          },
+          testAR: {
+            type: "radio",
+            title: "列表单选类型",
+            value: "列表选项1",
+            radioArr: ["列表选项1", "列表选项2"],
+          },
+        },
+        value: [],
+      },
+    },
+    htmlstr:
+      "<div><h4>各类型组件效果展示</h4><h4 class='title-common'>文本类型</h4><div class='text-common orange-p'><%testT%></div><h4 class='title-common'>单选类型</h4><div class='text-common orange-p'><%testR%></div><h4 class='title-common'>颜色类型</h4><div style='color:<%testC%>;' class='text-common orange-p'>可配置修改颜色</div><%testArr%>",
+  },
 ]
