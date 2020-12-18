@@ -30,16 +30,14 @@ export const SData2Html: SData2HtmlFuncProp = (globalSetting, mainTree, localStr
       ${externalCss.map(v => `<link rel="stylesheet" href="${v}" />`).join("")}
     </head>
     <style>body{background-color:${globalSetting.global.bodyColor};direction:${globalSetting.global.direction}}</style>
-    <style>${globalSetting.global.css}</style>
+    ${globalSetting.global.css ? `<style>${globalSetting.global.css}</style>` : ``}
     ${localString ? localString.ScrollBarHideStyle : ""}
     <body>
       <div id="qiapp">${main}</div>
     </body>
     ${localString ? localString.TypeDisguise : ""}
-
     ${externalJs.map(v => `<script src="${v}"></script>`).join("")}
-    <script>${globalSetting.global.js}</script>
-
+    ${globalSetting.global.js ? `<script>${globalSetting.global.js}</script>` : ``}
     ${localString ? localString.ScrollPositonCache : ""}
     ${localString ? localString.ComponentScrollToPagePos : ""}
     </html>

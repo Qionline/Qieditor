@@ -58,7 +58,7 @@ export const TmpReplace = function (id: number, tmp: string, compParams: compone
       tmp = tmp.replace(
         new RegExp(value),
         compParams[param].type === "array"
-          ? handleArrayTmp((compParams[param] as ParamArrayType).template, (compParams[param] as ParamArrayType).value, globalParams)
+          ? handleArrayTmp((compParams[param] as ParamArrayType).template, (compParams[param] as ParamArrayType).value, compParams)
           : (compParams[param].value as string)
       )
     } else if (globalParams[param]) {
