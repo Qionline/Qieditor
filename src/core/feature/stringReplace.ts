@@ -10,7 +10,7 @@ const handleArrayTypeError = function () {
   throw new Error("配置文件错误：禁止array类型参数中使用array类型参数作为子变量!")
 }
 
-const handleArrayTmp = function (template: string, vArray: ParamArrayParamTypeProp[],  globalParams: componentsTreePramasProp) {
+const handleArrayTmp = function (template: string, vArray: ParamArrayParamTypeProp[],  comonParams: componentsTreePramasProp) {
   let tmp: string[] = []
   const reg = /<%\w*%>+/g
   const paramsArr = template.match(reg)
@@ -26,9 +26,9 @@ const handleArrayTmp = function (template: string, vArray: ParamArrayParamTypePr
     for (const value of paramsArr) {
       const param = value.split("%")[1]
       if (el[param]) vTemp = vTemp.replace(new RegExp(value), el[param].value)
-      else if (globalParams[param]) {
-        if (globalParams[param].type === "array") handleArrayTypeError()
-        vTemp = vTemp.replace(new RegExp(value), globalParams[param].value as string)
+      else if (comonParams[param]) {
+        if (comonParams[param].type === "array") handleArrayTypeError()
+        vTemp = vTemp.replace(new RegExp(value), comonParams[param].value as string)
       }
     }
     tmp.push(vTemp)

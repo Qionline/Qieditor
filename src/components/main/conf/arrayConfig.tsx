@@ -56,7 +56,7 @@ interface ArrayConfigCmpProps {
 
 const ArrayConfigCmp: React.FC<ArrayConfigCmpProps> = ({ item, valueArray, onChangeComplete }) => {
   const handleAddItem = () => {
-    onChangeComplete([...valueArray, item])
+    onChangeComplete([...valueArray, JSON.parse(JSON.stringify(item))])
     message.success("添加成功!")
   }
   const handleDeleteItem = (i: number) => {
