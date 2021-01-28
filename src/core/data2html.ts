@@ -16,6 +16,7 @@ export const SData2Html: SData2HtmlFuncProp = (globalSetting, mainTree, localStr
     main += res
   })
 
+  const beforeLoadJs = globalSetting.global?.beforeLoadJs ? `<script>${globalSetting.global.beforeLoadJs}</script>` : ""
   const externalCss = globalSetting.global?.externalCss ? [...globalSetting.global.externalCss] : []
   const externalJs = globalSetting.global?.externalJs ? [...globalSetting.global.externalJs] : []
 
@@ -28,6 +29,7 @@ export const SData2Html: SData2HtmlFuncProp = (globalSetting, mainTree, localStr
       <meta http-equiv="X-UA-Compatible" content="ie=edge" />
       <title>${globalSetting.global.title}</title>
       ${externalCss.map(v => `<link rel="stylesheet" href="${v}" />`).join("")}
+      ${beforeLoadJs}
     </head>
     <style>body{background-color:${globalSetting.global.bodyColor};direction:${globalSetting.global.direction}}</style>
     ${globalSetting.global.css ? `<style>${globalSetting.global.css}</style>` : ``}

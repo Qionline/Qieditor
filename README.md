@@ -45,6 +45,7 @@ Qieditor 通过解析导入.json 的配置文件来生成可视化编辑页面�
     "bodyColor": "#e07300",
     "css": "body{color:#fff}",
     "js": "",
+    "beforeLoadJs": "可选参数：html加载前优先载入的js文件",
     "externalCss": ["可选参数，里面填入字符串链接，用于引入外部的css"],
     "externalJs": ["可选参数，里面填入字符串链接，用于引入外部的js"],
     "params": {
