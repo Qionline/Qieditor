@@ -50,6 +50,7 @@ export interface globalSettingProp {
     bodyColor: string
     css: string
     js: string
+    beforeLoadJs?: string
     externalCss?: string[]
     externalJs?: string[]
     params: componentsTreePramasProp
