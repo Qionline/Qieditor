@@ -78,7 +78,7 @@ const FileMenu: React.FC = () => {
     <Menu>
       <Menu.Item key="0">
         <span className="menu-item filemenu-import-json">
-          <input onChange={handleFiles} type="file" id="files" />
+          <input onChange={handleFiles} type="file" id="files" accept="application/JSON" />
           导入配置文件
         </span>
       </Menu.Item>
