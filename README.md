@@ -1,6 +1,11 @@
 <p align="center">
  <img width="100px" src="https://cdn.jsdelivr.net/gh/Qionline/Qieditor/docs/images/logo.svg" align="center" alt="Tnshare Logo" />
  <h2 align="center">Qieditor</h2>
+ <p align="center">
+  <img src="https://github.com/aleen42/badges/raw/master/src/visual_studio_code_flat_square.svg?sanitize=true">
+  <img src="https://github.com/aleen42/badges/raw/master/src/typescript_flat_square.svg?sanitize=true">
+  <img src="https://github.com/aleen42/badges/raw/master/src/react_flat_square.svg?sanitize=true">
+ </p>
  <p align="center">Qieditor 是一个 HTML 页面生成器：通过配置形式快速生成页面的可视化编辑工具，做到一次开发、多次生成，简化开发流程，提高开发流水线的生产效率。</p>
 </p>
 <p align="center">
