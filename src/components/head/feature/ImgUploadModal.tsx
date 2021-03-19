@@ -24,7 +24,7 @@ interface ImgUploadModalProp {
   setModalState: React.Dispatch<React.SetStateAction<boolean>>
 }
 const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalState }) => {
-  type currentProp = "upload" | "qn"
+  type currentProp = "upload" | "qn" | "refresh" | "delete"
   const [current, setCurrent] = useState<currentProp>("upload")
 
   const [qnAccessKey, setQnAccessKey] = useState("")
@@ -32,6 +32,9 @@ const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalStat
   const [qnImgUrl, setQnImgUrl] = useState("")
   const [qnScope, setQnScope] = useState("")
   const [qnUpRegion, setQnUpRegion] = useState("z0")
+
+  const [refreshFileName, setRefreshFileName] = useState("")
+  const [deleteFileName, setDeleteFileName] = useState("")
 
   useEffect(() => {
     if (!modalState) return
@@ -62,23 +65,6 @@ const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalStat
     setQnUpRegion("z0")
   }
 
-  const handleQnInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    switch (e.target.name) {
-      case "accessKey":
-        setQnAccessKey(e.target.value)
-        break
-      case "secretKey":
-        setQnSecretKey(e.target.value)
-        break
-      case "imgUrl":
-        setQnImgUrl(e.target.value)
-        break
-      case "qnScope":
-        setQnScope(e.target.value)
-        break
-    }
-  }
-
   const handleQnUpdate = () => {
     const qnConfig = {
       type: "qn",
@@ -101,6 +87,7 @@ const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalStat
     message.success(`配置保存成功！`)
   }
 
+  // 七牛云图片上传
   const uploadProps = {
     multiple: true,
     customRequest(option: RcCustomRequestOptions) {
@@ -143,6 +130,13 @@ const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalStat
     },
   }
 
+  const handleRefreshFile = () => {
+    console.log(refreshFileName)
+  }
+  const handleDeleteFile = () => {
+    console.log(deleteFileName)
+  }
+
   return (
     <Modal
       title="本地图片上传"
@@ -157,6 +151,8 @@ const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalStat
       <div className="image-upload-modal-main">
         <Menu className="image-upload-modal-main-head" onClick={({ key }) => setCurrent(key as currentProp)} selectedKeys={[current]} mode="horizontal">
           <Menu.Item key="upload">图片上传</Menu.Item>
+          <Menu.Item key="delete">图片删除</Menu.Item>
+          <Menu.Item key="refresh">图片刷新</Menu.Item>
           <Menu.Item key="qn">七牛云配置</Menu.Item>
         </Menu>
 
@@ -173,19 +169,33 @@ const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalStat
             </div>
           )}
 
+          {current === "refresh" && (
+            <div>
+              <Input placeholder="Basic usage" onChange={e => setRefreshFileName(e.target.value)} value={refreshFileName} />
+              <Button onClick={handleRefreshFile}>刷新</Button>
+            </div>
+          )}
+
+          {current === "delete" && (
+            <div>
+              <Input placeholder="Basic usage" onChange={e => setDeleteFileName(e.target.value)} value={deleteFileName} />
+              <Button onClick={handleDeleteFile}>删除</Button>
+            </div>
+          )}
+
           {current === "qn" && (
             <div className="qn-form">
               <FormLabel title="accessKey:">
-                <Input.Password visibilityToggle={false} onChange={e => handleQnInputChange(e)} value={qnAccessKey} name="accessKey" />
+                <Input.Password visibilityToggle={false} onChange={e => setQnAccessKey(e.target.value)} value={qnAccessKey} name="accessKey" />
               </FormLabel>
               <FormLabel title="secretKey:">
-                <Input.Password visibilityToggle={false} onChange={e => handleQnInputChange(e)} value={qnSecretKey} name="secretKey" />
+                <Input.Password visibilityToggle={false} onChange={e => setQnSecretKey(e.target.value)} value={qnSecretKey} name="secretKey" />
               </FormLabel>
               <FormLabel title="图片路径:">
-                <Input onChange={e => handleQnInputChange(e)} value={qnImgUrl} name="imgUrl" />
+                <Input onChange={e => setQnImgUrl(e.target.value)} value={qnImgUrl} name="imgUrl" />
               </FormLabel>
               <FormLabel title="空间:">
-                <Input onChange={e => handleQnInputChange(e)} value={qnScope} name="qnScope" />
+                <Input onChange={e => setQnScope(e.target.value)} value={qnScope} name="qnScope" />
               </FormLabel>
 
               <div className="qn-form-bottom">
