@@ -24,7 +24,7 @@ interface ImgUploadModalProp {
   setModalState: React.Dispatch<React.SetStateAction<boolean>>
 }
 const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalState }) => {
-  type currentProp = "upload" | "qn" | "refresh" | "delete"
+  type currentProp = "upload" | "qn"
   const [current, setCurrent] = useState<currentProp>("upload")
 
   const [qnAccessKey, setQnAccessKey] = useState("")
@@ -32,9 +32,6 @@ const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalStat
   const [qnImgUrl, setQnImgUrl] = useState("")
   const [qnScope, setQnScope] = useState("")
   const [qnUpRegion, setQnUpRegion] = useState("z0")
-
-  const [refreshFileName, setRefreshFileName] = useState("")
-  const [deleteFileName, setDeleteFileName] = useState("")
 
   useEffect(() => {
     if (!modalState) return
@@ -130,13 +127,6 @@ const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalStat
     },
   }
 
-  const handleRefreshFile = () => {
-    console.log(refreshFileName)
-  }
-  const handleDeleteFile = () => {
-    console.log(deleteFileName)
-  }
-
   return (
     <Modal
       title="本地图片上传"
@@ -151,8 +141,6 @@ const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalStat
       <div className="image-upload-modal-main">
         <Menu className="image-upload-modal-main-head" onClick={({ key }) => setCurrent(key as currentProp)} selectedKeys={[current]} mode="horizontal">
           <Menu.Item key="upload">图片上传</Menu.Item>
-          <Menu.Item key="delete">图片删除</Menu.Item>
-          <Menu.Item key="refresh">图片刷新</Menu.Item>
           <Menu.Item key="qn">七牛云配置</Menu.Item>
         </Menu>
 
@@ -166,20 +154,6 @@ const ImgUploadModal: React.FC<ImgUploadModalProp> = ({ modalState, setModalStat
                 <p className="ant-upload-text">点击或拖拽一张或多张照片上传</p>
                 <p className="ant-upload-hint">正在使用七牛云上传，请确认配置无误</p>
               </Upload.Dragger>
-            </div>
-          )}
-
-          {current === "refresh" && (
-            <div>
-              <Input placeholder="Basic usage" onChange={e => setRefreshFileName(e.target.value)} value={refreshFileName} />
-              <Button onClick={handleRefreshFile}>刷新</Button>
-            </div>
-          )}
-
-          {current === "delete" && (
-            <div>
-              <Input placeholder="Basic usage" onChange={e => setDeleteFileName(e.target.value)} value={deleteFileName} />
-              <Button onClick={handleDeleteFile}>删除</Button>
             </div>
           )}
 
