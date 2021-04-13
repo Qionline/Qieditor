@@ -118,7 +118,7 @@ qieditor 在生成页面时，会自动给最外层的 div 添加一个唯一的
 
 ### 参数类型
 
-params 中，type 目前支持 `text`、`radio`、`color`
+params 中，type 目前支持 `text`、`radio`、`color`、`array`
 
 **`text` 参数：**
 
