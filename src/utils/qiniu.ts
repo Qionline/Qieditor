@@ -72,7 +72,7 @@ export const getQnToken = function (accessKey: string, secretKey: string, scope:
 
 export const getQnRegion = {
   z0: "https://upload.qiniup.com",
-  z1: "https://pload-z1.qiniup.com",
+  z1: "https://upload-z1.qiniup.com",
   z2: "https://upload-z2.qiniup.com",
   na0: "https://upload-na0.qiniup.com",
   as0: "https://upload-as0.qiniup.com",

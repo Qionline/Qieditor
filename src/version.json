@@ -3,7 +3,7 @@
     {
       "version": "1.2.3",
       "upTime": "2021-1-28",
-      "info": ["html加载前的js"]
+      "info": ["新增html加载前的js配置项"]
     },
     {
       "version": "1.2.2",
