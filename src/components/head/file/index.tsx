@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Menu, Dropdown, message } from "antd"
 import { observer } from "mobx-react-lite"
 import html2canvasfrom from "html2canvas"
@@ -73,6 +73,18 @@ const FileMenu: React.FC = () => {
       a.click()
     })
   }
+
+  useEffect(() => {
+    function handleDevJson(event: MessageEvent) {
+      if (event.origin === "http://localhost:7707") {
+        const data = event.data
+        setJson2Store(data)
+        handleSetComponetSelectState(0)
+      }
+    }
+    window.addEventListener("message", handleDevJson)
+    return () => window.removeEventListener("message", handleDevJson)
+  }, [handleSetComponetSelectState])
 
   const menu = (
     <Menu>
