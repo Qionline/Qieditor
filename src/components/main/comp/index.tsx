@@ -72,7 +72,7 @@ const CompComponent: React.FC = () => {
                   <Draggable draggableId={t.id + ""} index={i} key={t.id}>
                     {(p, s) => (
                       <div className={`comp-item-child  ${s.isDragging ? "comp-item-child-drag" : ""}`} ref={p.innerRef} {...p.draggableProps} {...p.dragHandleProps} key={t.id}>
-                        {t.name}
+                        {t.name ? t.name : `Component ID ${t.id}`}
                       </div>
                     )}
                   </Draggable>
@@ -98,7 +98,7 @@ const CompComponent: React.FC = () => {
                             {...p.draggableProps}
                             {...p.dragHandleProps}
                           >
-                            {t.name}
+                            {t.name ? t.name : `Component ID ${t.id}`}
                           </div>
                         )
                       }}
