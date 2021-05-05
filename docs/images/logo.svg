@@ -4,11 +4,17 @@
     <title>未命名</title>
     <desc>Created with Sketch.</desc>
     <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Qieditor">
+        <g id="Qieditor.v2">
             <ellipse id="椭圆形" fill="#E07300" cx="115" cy="115.5" rx="115" ry="115.5"></ellipse>
-            <circle id="椭圆形" fill="#FFFFFF" cx="49.5" cy="86.5" r="28.5"></circle>
-            <circle id="椭圆形" fill="#FFFFFF" cx="177.5" cy="86.5" r="28.5"></circle>
-            <path d="M76,133 C78.9696886,131.447245 81.196955,130.338532 82.6817993,129.673861 C92.6211995,125.22462 102.5606,123 112.5,123 C119.852875,123 127.20575,124.217447 134.558626,126.65234 C137.76782,127.715059 142.581611,129.830946 149,133" id="路径-3" stroke="#FFFFFF" stroke-width="10" stroke-linejoin="round" transform="translate(112.500000, 128.000000) scale(1, -1) translate(-112.500000, -128.000000) "></path>
+            <rect id="矩形" stroke="#E07300" stroke-width="3" fill="#FFFFFF" x="77.5" y="50.5" width="96" height="121" rx="8"></rect>
+            <rect id="矩形" stroke="#E07300" stroke-width="8" fill="#FFFFFF" x="49" y="67" width="105" height="126" rx="8"></rect>
+            <line x1="72.5" y1="85.5" x2="131.5" y2="85.5" id="直线-4" stroke="#E07300" stroke-width="5" stroke-linecap="round"></line>
+            <line x1="72" y1="101" x2="131" y2="101" id="直线-4" stroke="#E07300" stroke-width="5" stroke-linecap="round"></line>
+            <line x1="72" y1="116" x2="131" y2="116" id="直线-4" stroke="#E07300" stroke-width="5" stroke-linecap="round"></line>
+            <line x1="72" y1="131" x2="131" y2="131" id="直线-4" stroke="#E07300" stroke-width="5" stroke-linecap="round"></line>
+            <line x1="72" y1="146" x2="131" y2="146" id="直线-4" stroke="#E07300" stroke-width="5" stroke-linecap="round"></line>
+            <line x1="72" y1="161" x2="131" y2="161" id="直线-4" stroke="#E07300" stroke-width="5" stroke-linecap="round"></line>
+            <line x1="72" y1="176" x2="131" y2="176" id="直线-4" stroke="#E07300" stroke-width="5" stroke-linecap="round"></line>
         </g>
     </g>
 </svg>
