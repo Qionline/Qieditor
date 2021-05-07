@@ -1,5 +1,5 @@
 <p align="center">
- <img width="100px" src="https://cdn.jsdelivr.net/gh/Qionline/Qieditor/docs/images/logo.svg" align="center" alt="Tnshare Logo" />
+ <img width="100px" src="https://cdn.jsdelivr.net/gh/Qionline/Qieditor/docs/images/logo.svg" align="center" alt="Qieditor" />
  <h2 align="center">Qieditor</h2>
  <p align="center">Qieditor 是一个 HTML 页面生成器：通过配置形式快速生成页面的可视化编辑工具，做到一次开发、多次生成，简化开发流程，提高开发流水线的生产效率。</p>
 </p>
