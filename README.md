@@ -9,7 +9,7 @@
  <p align="center">Qieditor 是一个 HTML 页面生成器：通过配置形式快速生成页面的可视化编辑工具，做到一次开发、多次生成，简化开发流程，提高开发流水线的生产效率。</p>
 </p>
 <p align="center">
-  <a href="https://github.com/Qionline/Qieditor/issues/new/choose">提供新点子 💡</a>
+  <a href="https://github.com/Qionline/Qieditor/issues/new/choose">提供新想法 💡</a>
   |
   <a href="https://github.com/Qionline/Qieditor/issues/new/choose">报告BUG 🐛</a>
   |
