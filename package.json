@@ -37,7 +37,7 @@
     "test": "craco test",
     "serve": "npx serve -s build",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build && node ./scripts/cname.js",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
